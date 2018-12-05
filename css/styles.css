@@ -1,0 +1,43 @@
+body{
+    padding-top: 65px;    
+}
+
+.footer{
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    font-size: .75em;
+}
+
+.footer hr{
+    margin-bottom:0;
+}
+
+.modalTitle{
+    font-size: 1.5em;   
+}
+
+.error{
+    color:red;
+    font-size: 1.2em;
+}
+
+
+@media(max-width:1000px)  {
+    .navbar-collapse.collapse {
+        display: none !important;
+    }
+
+    .collapse.in {
+      display: block !important;
+    }
+    
+    .navbar-toggle { 
+        display: block !important; 
+    } 
+ 
+    .navbar-header {
+        float: none;
+    }
+}
