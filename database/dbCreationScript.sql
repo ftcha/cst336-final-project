@@ -2,9 +2,20 @@
 -- *************** Tom Cruise Emporium ***************;
 
 SET FOREIGN_KEY_CHECKS = 0;
-DROP TABLE IF EXISTS user_roles, user_states, TRANSACTION, users, states, roles, product;
+DROP TABLE IF EXISTS user_roles, TRANSACTION, users, states, roles, product;
 SET FOREIGN_KEY_CHECKS = 1;
 SET @@auto_increment_increment = 1;
+
+
+-- ************************************** `states`
+
+CREATE TABLE states
+(
+ stateCode VARCHAR(2) NOT NULL ,
+ stateTax  DECIMAL(10,6) NOT NULL ,
+ shipping DECIMAL(10,2) NOT NULL ,
+PRIMARY KEY (stateCode)
+);
 
 -- ************************************** `users`
 
@@ -13,8 +24,10 @@ CREATE TABLE users
  userId   TINYINT NOT NULL AUTO_INCREMENT ,
  userName VARCHAR(16) NOT NULL ,
  PASSWORD CHAR(40) NOT NULL ,
+ stateCode VARCHAR(2) NOT NULL ,
 PRIMARY KEY (userId),
-UNIQUE(userName)
+UNIQUE(userName),
+CONSTRAINT FK_users_state FOREIGN KEY (stateCode) REFERENCES states (stateCode)
 );
 
 -- ************************************** `roles`
@@ -27,15 +40,6 @@ CREATE TABLE roles
 PRIMARY KEY (roleId)
 );
 
--- ************************************** `states`
-
-CREATE TABLE states
-(
- stateCode VARCHAR(2) NOT NULL ,
- stateTax  DECIMAL(10,6) NOT NULL ,
- shipping DECIMAL(10,2) NOT NULL ,
-PRIMARY KEY (stateCode)
-);
 
 -- ************************************** `product`
 
@@ -49,14 +53,6 @@ CREATE TABLE product
 PRIMARY KEY (productId)
 );
 
--- ************************************** `user_states`
-
-CREATE TABLE user_states
-(
-	userID TINYINT NOT NULL,
-	stateCode VARCHAR(2) NOT NULL,
-PRIMARY KEY(userID, stateCode)
-);
 
 -- ************************************** `user_roles`
 
@@ -77,17 +73,15 @@ CREATE TABLE TRANSACTION
  lineNumber INT NOT NULL ,
  productId  INT NOT NULL ,
  stateCode  VARCHAR(2) NOT NULL ,
+ userId     tinyint NOT NULL ,
 PRIMARY KEY (tranId, lineNumber),
 CONSTRAINT FK_transaction_product FOREIGN KEY (productId) REFERENCES product (productId),
-CONSTRAINT FK_transaction_state FOREIGN KEY (stateCode) REFERENCES states (stateCode)
+CONSTRAINT FK_transaction_state FOREIGN KEY (stateCode) REFERENCES states (stateCode),
+CONSTRAINT FK_transaction_user FOREIGN KEY (userId) REFERENCES users (userId)
 );
 
 
 -- ******************** INSERT STATEMENTS **********************
-
-
-INSERT INTO users (userId, userName, PASSWORD) VALUES
-(NULL, 'admin', SHA1('secret'));
 
 
 INSERT INTO states (stateCode, stateTax, shipping) VALUES
@@ -146,6 +140,11 @@ INSERT INTO states (stateCode, stateTax, shipping) VALUES
 
 
 
+INSERT INTO users (userId, userName, PASSWORD, stateCode) VALUES
+(NULL, 'admin', SHA1('secret'), 'CA');
+
+
+
 INSERT INTO roles (roleId, roleName, roleDescription) VALUES
 (NULL, 'Admin', 'Site Administrator'),
 (NULL, 'User', 'Normal User');
@@ -168,6 +167,3 @@ INSERT INTO product (productId, NAME, description, imageURL, price) VALUES
 
 INSERT INTO user_roles (userId, roleId) VALUES
 ( (SELECT userId FROM users WHERE userName='admin'), (SELECT roleId FROM roles WHERE roleName='Admin'));
-
-INSERT INTO user_states (userID, stateCode) VALUES
-((SELECT userID FROM users WHERE userName='admin'), 'CA');
