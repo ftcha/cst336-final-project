@@ -4,7 +4,9 @@
 ?>
 
   <div class='container'>
-      Shop Page
+      
+      <?php displayAllProducts(); ?>
+      
   </div>
 <?php
     include 'inc/footer.php';
