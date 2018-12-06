@@ -122,4 +122,32 @@
         return $loginStatus;
     }
 
+    function displayAllProducts(){
+        global $conn;
+        $sql = "SELECT * 
+                FROM product 
+                ORDER BY NAME";
+                
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        echo "<table class='table table-borderless table-hover'><tbody>";
+        
+        foreach($records as $record){
+                echo "<tr>";
+                echo "<td>" . "<img src='" . $record["imageURL"] . "' style='height:250px; width:160px;'>" . "</td>";
+                echo "<td>" . $record["NAME"] . "</td>";
+                echo "<td>$" . $record["price"] . "</td>";
+                echo "<td>" . $record["description"] . "</td>";
+                echo "<form action='inc/addToCart.php'>";
+                echo "<input type='hidden' name='addProduct' value=" . $record['productId'] . " />";
+                echo "<td><input type='submit' class='btn btn-danger' value='Add to Cart'></td>";
+                echo "</form>";
+                echo "</tr>";
+            }
+            
+        echo "</tbody></table>";
+    }
+
 ?>
