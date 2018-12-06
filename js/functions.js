@@ -50,6 +50,8 @@ $(document).ready( function(){
         });
         
     });
+    
+
 });
 
 
@@ -75,7 +77,7 @@ $(document).on("click", "#loginSubmit", function(event){
                 
             },
             complete: function(data, status){ // Used for debugging purposes
-            },
+            }
         });
     }
     
@@ -106,6 +108,7 @@ $(document).on("click", "#signupSubmit", function(event){
         });
     }
 });
+
 
 
 
