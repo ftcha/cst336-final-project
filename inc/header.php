@@ -1,6 +1,10 @@
 <?php
     session_start();
     include 'inc/functions.php';
+    
+    if (empty($_SESSION['cart'])){
+        $_SESSION['cart'] = array();
+    }
 ?>
 
 <!DOCTYPE html>
