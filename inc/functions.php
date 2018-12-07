@@ -132,22 +132,7 @@
         $stmt->execute();
         $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
-        echo "<table class='table table-borderless table-hover'><tbody>";
-        
-        foreach($records as $record){
-                echo "<tr>";
-                echo "<td>" . "<img src='" . $record["imageURL"] . "' style='height:250px; width:160px;'>" . "</td>";
-                echo "<td>" . $record["NAME"] . "</td>";
-                echo "<td>$" . $record["price"] . "</td>";
-                echo "<td>" . $record["description"] . "</td>";
-                echo "<form action='inc/addToCart.php'>";
-                echo "<input type='hidden' name='addProduct' value=" . $record['productId'] . " />";
-                echo "<td><input type='submit' class='btn btn-danger' value='Add to Cart'></td>";
-                echo "</form>";
-                echo "</tr>";
-            }
-            
-        echo "</tbody></table>";
+        displayProductListing($records);
     }
     
     function searchProduct($val){
@@ -165,23 +150,81 @@
         $stmt->execute($np);
         $records = $stmt->fetchAll(PDO::FETCH_ASSOC);;
         
+        displayProductListing($records);
+
+    }
+    
+    
+    function advancedProductSearch($title, $description, $priceMin, $priceMax, $orderTitle, $orderPrice, $orderDesc){
+        global $conn;
+        $np=array();
+
+        $sql="SELECT * FROM product WHERE 1";
+        
+        if($title != null){
+            $sql.=" AND name LIKE CONCAT('%', :title, '%')";
+            $np[':title']=$title;
+        }
+        
+        if($description != null){
+            $sql.=" AND description LIKE CONCAT('%', :description, '%')";
+            $np[':description']=$description;
+        }
+        
+        if($priceMin != null){
+            $sql.=" AND price >= :priceMin";
+            $np[':priceMin']=$priceMin;
+        }
+        
+        if($priceMax != null){
+            $sql.=" AND price <= :priceMax";
+            $np[':priceMax']=$priceMax;
+        }
+        
+        if($orderTitle == 'on' || $orderPrice =='on'){
+            $sql.= " ORDER BY";
+            
+            if($orderTitle == 'on'){
+                $sql.=" name";
+            }
+            
+            if($orderTitle == 'on' && $orderPrice == 'on')
+                $sql.=",";
+                
+            if($orderPrice =='on'){
+                $sql.=" price";
+            }
+            
+            if($orderDesc == 'on'){
+                $sql.=" DESC";
+            }
+        }
+    
+        $stmt=$conn->prepare($sql);
+        $stmt->execute($np);
+        $records = $stmt->fetchAll(PDO::FETCH_ASSOC);;
+        
+        displayProductListing($records);
+    }
+    
+    function displayProductListing($records){
         echo "<table class='table table-borderless table-hover'><tbody>";
       
             foreach($records as $record){
-                    echo "<tr>";
-                    echo "<td>" . "<img src='" . $record["imageURL"] . "' style='height:250px; width:160px;'>" . "</td>";
-                    echo "<td>" . $record["NAME"] . "</td>";
-                    echo "<td>$" . $record["price"] . "</td>";
-                    echo "<td>" . $record["description"] . "</td>";
-                    echo "<form action='inc/addToCart.php'>";
-                    echo "<input type='hidden' name='addProduct' value=" . $record['productId'] . " />";
-                    echo "<td><input type='submit' class='btn btn-danger' value='Add to Cart'></td>";
-                    echo "</form>";
-                    echo "</tr>";
-                }
+                echo "<tr>";
+                echo "<td>" . "<img src='" . $record["imageURL"] . "' style='height:250px; width:160px;'>" . "</td>";
+                echo "<td>" . $record["NAME"] . "</td>";
+                echo "<td>$" . $record["price"] . "</td>";
+                echo "<td>" . $record["description"] . "</td>";
+                echo "<form action='inc/addToCart.php'>";
+                echo "<input type='hidden' name='addProduct' value=" . $record['productId'] . " />";
+                echo "<td><input type='submit' class='btn btn-danger' value='Add to Cart'></td>";
+                echo "</form>";
+                echo "</tr>";
+            }
         
-            
         echo "</tbody></table>";
     }
+    
 
 ?>
