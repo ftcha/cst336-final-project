@@ -132,6 +132,7 @@
         $stmt->execute();
         $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
+
         displayProductListing($records);
     }
     
@@ -209,22 +210,27 @@
     
     function displayProductListing($records){
         echo "<table class='table table-borderless table-hover'><tbody>";
-      
-            foreach($records as $record){
+        
+        foreach($records as $record){
                 echo "<tr>";
                 echo "<td>" . "<img src='" . $record["imageURL"] . "' style='height:250px; width:160px;'>" . "</td>";
                 echo "<td>" . $record["NAME"] . "</td>";
                 echo "<td>$" . $record["price"] . "</td>";
                 echo "<td>" . $record["description"] . "</td>";
-                echo "<form action='inc/addToCart.php'>";
-                echo "<input type='hidden' name='addProduct' value=" . $record['productId'] . " />";
-                echo "<td><input type='submit' class='btn btn-danger' value='Add to Cart'></td>";
-                echo "</form>";
+                
+                if(!array_key_exists($record['productId'], $_SESSION['cart'])){
+                    echo "<form action='inc/addToCart.php'>";
+                    echo "<input type='hidden' name='addProduct' value=" . $record['productId'] . " />";
+                    echo "<td><input type='submit' class='btn btn-primary btn-block' value='Add to Cart'></td>";
+                    echo "</form>";
+                } else {
+                    echo "<td><button type=button class='btn btn-secondary btn-block'>Added!</button></td>";
+                }
+                
                 echo "</tr>";
             }
-        
+            
         echo "</tbody></table>";
     }
     
-
 ?>
