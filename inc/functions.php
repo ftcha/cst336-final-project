@@ -95,7 +95,6 @@
             }else{
                 $loginStatus="error";
             }
-            
             return $loginStatus;
         }   
         
