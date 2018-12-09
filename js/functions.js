@@ -21,7 +21,7 @@ $(document).on("click", "#signupBtn", function(event){
     $.ajax({
         type: "POST",
         url: "inc/functions.php",
-        datatype: "text",
+        dataType: "text",
         data: {action: 'getStates'},
         success: function(data, status) {
             $("#signup").html("<div class='form' id='signupForm'><div class='form-group'><span class='userPrompt'>Username:</span><div class='input-group'><span class='input-group-addon'><i class='glyphicon glyphicon-user'></i></span><input type='text' id='username' name='username' class='form-control' placeholder='Username'/><br /></div></div><div class='form-group'><span class='userPrompt'>Password: </span><div class='input-group'><span class='input-group-addon'><i class='glyphicon glyphicon-lock' aria-hidden='true'></i></span><input type='password' id='password' name='password' placeholder='Password' class='form-control'/><br /></div>");   
@@ -42,7 +42,7 @@ $(document).on("click" ,"#logoutBtn", function(event){
        url: "inc/functions.php",
        data:{action: 'logout'},
        success:function(){
-           $("#navigation").load('inc/header.php #navigation');
+           location.reload();
        },
        complete: function(){ // Used for debugging purposes
        }
@@ -80,7 +80,7 @@ $(document).on("click", "#signupSubmit", function(event){
         var username = $('#username').val();
         var password = $('#password').val();
         var state = $('#stateSelect').val();
-        console.log(username + " " + password + " " + state);
+      
         $.ajax({
             type: "POST",
             url: "inc/functions.php",
@@ -101,17 +101,18 @@ $(document).on("click", "#signupSubmit", function(event){
 });
 
 
-$(document).on("click", ".shopButton", function(event){
+$(document).on("click", ".addToCartBtn", function(event){
     var itemNum=$(this).attr('id');
     
     $.ajax({
         type: "POST",
         url: "inc/functions.php",
-        dataType: "none",
+        dataType: "text",
         data: {action: 'addToCart', itemNum: itemNum},
         complete: function(data, status){
             document.getElementById(itemNum).value = "Added!";
             document.getElementById(itemNum).disabled = true;
+            $("#cartCount").html(data.responseText);
         }
     });
 });

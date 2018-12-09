@@ -21,7 +21,7 @@
         }
         
         if($_POST['action'] == 'addToCart'){
-            addToCard($_POST['itemNum']);
+            addToCart($_POST['itemNum']);
         }
     }
 
@@ -221,13 +221,12 @@
                 echo "<td><em>$" . $record["price"] . "</em></td>";
                 echo "<td>" . $record["description"] . "</td>";
                 
-                if(!array_key_exists($record['productId'], $_SESSION['cart'])){
-                    echo "<td><input type='button' id='".$record['productId']."' class='btn btn-primary btn-block shopButton' value='Add to Cart'></td>";
+                if(!inCart($record['productId'])){
+                    echo "<td><input type='button' id='".$record['productId']."' class='btn btn-primary btn-block addToCartBtn' value='Add to Cart'></td>";
                 } else {
-                    echo "<td><input type='button' id='".$record['productId']."' class='btn btn-secondary btn-block shopButton' value='Added!' disabled></td>";
+                    echo "<td><input type='button' id='".$record['productId']."' class='btn btn-secondary btn-block addToCartBtn' value='Already in Cart!' disabled></td>";
                 }
                 
-               
                 echo "</tr>";
             }
             
@@ -238,17 +237,37 @@
         
         $cart_item['itemId']=$itemNum;
 
-        foreach($_SESSION['cart'] as $item){
-            if($item['itemId'] == $itemNum){
-                $item['quantity']++;
-                $found = true;
-            }
-        }
-        
-        if(!$found){
+        if(inCart($itemNum)){
+            $item['quantity']++;
+        }else{
             $cart_item['quantity']=1;
             array_push($_SESSION['cart'], $cart_item);
         }
+        
+        echo cartCount();
+    }
+    
+    
+    function inCart($itemNum){
+        $found = false;
+        foreach($_SESSION['cart'] as $item){
+            if($item['itemId'] == $itemNum){
+                $found = true;
+            }
+        }
+        return $found;
+    }
+    
+    function cartCount(){
+        $count=0;
+        
+        if(isset($_SESSION['cart'])){
+            foreach($_SESSION['cart'] as $item){
+                $count+=$item['quantity'];
+            }
+        }
+        
+        return $count;
     }
     
 ?>

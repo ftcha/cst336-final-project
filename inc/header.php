@@ -78,7 +78,7 @@
                         <?=$_SESSION['loggedIn']==true?'
                             <li>
                                 <a href="#">
-                                <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>&nbsp;Cart: 0</a>
+                                <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>&nbsp;Cart: <span id="cartCount">'.(function_exists('cartCount')?cartCount():0).'</span></a>
                                 <li><a href="#" id="logoutBtn"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Logout</a></li>
                             </li>'
                         :'
@@ -93,5 +93,6 @@
         </nav>
         
 <?php
-    include 'inc/modals.php'
+    include 'inc/modals.php';
+    
 ?>
