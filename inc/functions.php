@@ -208,24 +208,24 @@
     }
     
     function displayProductListing($records){
-        echo "<table class='table table-borderless table-hover'><tbody>";
+        echo "<table class='table table-hover'><tbody>";
         
         foreach($records as $record){
                 echo "<tr>";
                 echo "<td>" . "<img src='" . $record["imageURL"] . "' style='height:250px; width:160px;'>" . "</td>";
-                echo "<td>" . $record["NAME"] . "</td>";
-                echo "<td>$" . $record["price"] . "</td>";
+                echo "<td class='col-md-3'><strong>" . $record["NAME"] . "</strong></td>";
+                echo "<td><em>$" . $record["price"] . "</em></td>";
                 echo "<td>" . $record["description"] . "</td>";
+                echo "<form action='inc/addToCart.php'>";
+                echo "<input type='hidden' name='addProduct' value=" . $record['productId'] . " />";
                 
                 if(!array_key_exists($record['productId'], $_SESSION['cart'])){
-                    echo "<form action='inc/addToCart.php'>";
-                    echo "<input type='hidden' name='addProduct' value=" . $record['productId'] . " />";
                     echo "<td><input type='submit' class='btn btn-primary btn-block' value='Add to Cart'></td>";
-                    echo "</form>";
                 } else {
-                    echo "<td><button type=button class='btn btn-secondary btn-block'>Added!</button></td>";
+                    echo "<td><input type='submit' class='btn btn-secondary btn-block' value='Added!'></td>";
                 }
                 
+                echo "</form>";
                 echo "</tr>";
             }
             
