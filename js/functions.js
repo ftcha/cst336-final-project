@@ -59,7 +59,7 @@ $(document).on("click", "#loginSubmit", function(event){
         $.ajax({
             type: "POST",
             url: "inc/functions.php",
-            datatype: "text",
+            dataType: "text",
             data: {action: 'login', username: username, password: password},
             success: function(data, status){
                 if(data=='success'){
@@ -84,7 +84,7 @@ $(document).on("click", "#signupSubmit", function(event){
         $.ajax({
             type: "POST",
             url: "inc/functions.php",
-            datatype: "text",
+            dataType: "text",
             data: {action: 'signup', username: username, password: password, state: state},
             success:function(data, status){
                 if(data=='duplicate'){
@@ -101,7 +101,20 @@ $(document).on("click", "#signupSubmit", function(event){
 });
 
 
-
+$(document).on("click", ".shopButton", function(event){
+    var itemNum=$(this).attr('id');
+    
+    $.ajax({
+        type: "POST",
+        url: "inc/functions.php",
+        dataType: "none",
+        data: {action: 'addToCart', itemNum: itemNum},
+        complete: function(data, status){
+            document.getElementById(itemNum).value = "Added!";
+            document.getElementById(itemNum).disabled = true;
+        }
+    });
+});
 
 //functions
 function modalCheck(){

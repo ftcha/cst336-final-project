@@ -19,6 +19,10 @@
         if($_POST['action'] == 'signup'){
             echo signupAttempt($_POST['username'], $_POST['password'], $_POST['state']);
         }
+        
+        if($_POST['action'] == 'addToCart'){
+            addToCard($_POST['itemNum']);
+        }
     }
 
     function getStateCodes(){
@@ -216,20 +220,35 @@
                 echo "<td class='col-md-3'><strong>" . $record["NAME"] . "</strong></td>";
                 echo "<td><em>$" . $record["price"] . "</em></td>";
                 echo "<td>" . $record["description"] . "</td>";
-                echo "<form action='inc/addToCart.php'>";
-                echo "<input type='hidden' name='addProduct' value=" . $record['productId'] . " />";
                 
                 if(!array_key_exists($record['productId'], $_SESSION['cart'])){
-                    echo "<td><input type='submit' class='btn btn-primary btn-block' value='Add to Cart'></td>";
+                    echo "<td><input type='button' id='".$record['productId']."' class='btn btn-primary btn-block shopButton' value='Add to Cart'></td>";
                 } else {
-                    echo "<td><input type='submit' class='btn btn-secondary btn-block' value='Added!'></td>";
+                    echo "<td><input type='button' id='".$record['productId']."' class='btn btn-secondary btn-block shopButton' value='Added!' disabled></td>";
                 }
                 
-                echo "</form>";
+               
                 echo "</tr>";
             }
             
         echo "</tbody></table>";
+    }
+    
+    function addToCart($itemNum){
+        
+        $cart_item['itemId']=$itemNum;
+
+        foreach($_SESSION['cart'] as $item){
+            if($item['itemId'] == $itemNum){
+                $item['quantity']++;
+                $found = true;
+            }
+        }
+        
+        if(!$found){
+            $cart_item['quantity']=1;
+            array_push($_SESSION['cart'], $cart_item);
+        }
     }
     
 ?>

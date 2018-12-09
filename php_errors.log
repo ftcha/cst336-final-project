@@ -382,3 +382,141 @@
 [08-Dec-2018 01:16:44 UTC] PHP Warning:  include(): Failed opening 'inc/modals.php' for inclusion (include_path='.:/usr/share/php:/usr/share/pear') in /home/ubuntu/workspace/cst336-final-project/inc/header.php on line 97
 [08-Dec-2018 01:16:44 UTC] PHP Stack trace:
 [08-Dec-2018 01:16:44 UTC] PHP   1. {main}() /home/ubuntu/workspace/cst336-final-project/inc/header.php:0
+[09-Dec-2018 05:48:23 UTC] PHP Warning:  include(inc/functions.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/cst336-final-project/inc/header.php on line 3
+[09-Dec-2018 05:48:23 UTC] PHP Stack trace:
+[09-Dec-2018 05:48:23 UTC] PHP   1. {main}() /home/ubuntu/workspace/cst336-final-project/inc/header.php:0
+[09-Dec-2018 05:48:23 UTC] PHP Warning:  include(): Failed opening 'inc/functions.php' for inclusion (include_path='.:/usr/share/php:/usr/share/pear') in /home/ubuntu/workspace/cst336-final-project/inc/header.php on line 3
+[09-Dec-2018 05:48:23 UTC] PHP Stack trace:
+[09-Dec-2018 05:48:23 UTC] PHP   1. {main}() /home/ubuntu/workspace/cst336-final-project/inc/header.php:0
+[09-Dec-2018 05:48:23 UTC] PHP Warning:  include(inc/modals.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/cst336-final-project/inc/header.php on line 97
+[09-Dec-2018 05:48:23 UTC] PHP Stack trace:
+[09-Dec-2018 05:48:23 UTC] PHP   1. {main}() /home/ubuntu/workspace/cst336-final-project/inc/header.php:0
+[09-Dec-2018 05:48:23 UTC] PHP Warning:  include(): Failed opening 'inc/modals.php' for inclusion (include_path='.:/usr/share/php:/usr/share/pear') in /home/ubuntu/workspace/cst336-final-project/inc/header.php on line 97
+[09-Dec-2018 05:48:23 UTC] PHP Stack trace:
+[09-Dec-2018 05:48:23 UTC] PHP   1. {main}() /home/ubuntu/workspace/cst336-final-project/inc/header.php:0
+[09-Dec-2018 05:48:25 UTC] PHP Warning:  include(inc/functions.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/cst336-final-project/inc/header.php on line 3
+[09-Dec-2018 05:48:25 UTC] PHP Stack trace:
+[09-Dec-2018 05:48:25 UTC] PHP   1. {main}() /home/ubuntu/workspace/cst336-final-project/inc/header.php:0
+[09-Dec-2018 05:48:25 UTC] PHP Warning:  include(): Failed opening 'inc/functions.php' for inclusion (include_path='.:/usr/share/php:/usr/share/pear') in /home/ubuntu/workspace/cst336-final-project/inc/header.php on line 3
+[09-Dec-2018 05:48:25 UTC] PHP Stack trace:
+[09-Dec-2018 05:48:25 UTC] PHP   1. {main}() /home/ubuntu/workspace/cst336-final-project/inc/header.php:0
+[09-Dec-2018 05:48:25 UTC] PHP Warning:  include(inc/modals.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/cst336-final-project/inc/header.php on line 97
+[09-Dec-2018 05:48:25 UTC] PHP Stack trace:
+[09-Dec-2018 05:48:25 UTC] PHP   1. {main}() /home/ubuntu/workspace/cst336-final-project/inc/header.php:0
+[09-Dec-2018 05:48:25 UTC] PHP Warning:  include(): Failed opening 'inc/modals.php' for inclusion (include_path='.:/usr/share/php:/usr/share/pear') in /home/ubuntu/workspace/cst336-final-project/inc/header.php on line 97
+[09-Dec-2018 05:48:25 UTC] PHP Stack trace:
+[09-Dec-2018 05:48:25 UTC] PHP   1. {main}() /home/ubuntu/workspace/cst336-final-project/inc/header.php:0
+[09-Dec-2018 05:48:30 UTC] PHP Warning:  include(inc/functions.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/cst336-final-project/inc/header.php on line 3
+[09-Dec-2018 05:48:30 UTC] PHP Stack trace:
+[09-Dec-2018 05:48:30 UTC] PHP   1. {main}() /home/ubuntu/workspace/cst336-final-project/inc/header.php:0
+[09-Dec-2018 05:48:30 UTC] PHP Warning:  include(): Failed opening 'inc/functions.php' for inclusion (include_path='.:/usr/share/php:/usr/share/pear') in /home/ubuntu/workspace/cst336-final-project/inc/header.php on line 3
+[09-Dec-2018 05:48:30 UTC] PHP Stack trace:
+[09-Dec-2018 05:48:30 UTC] PHP   1. {main}() /home/ubuntu/workspace/cst336-final-project/inc/header.php:0
+[09-Dec-2018 05:48:30 UTC] PHP Warning:  include(inc/modals.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/cst336-final-project/inc/header.php on line 97
+[09-Dec-2018 05:48:30 UTC] PHP Stack trace:
+[09-Dec-2018 05:48:30 UTC] PHP   1. {main}() /home/ubuntu/workspace/cst336-final-project/inc/header.php:0
+[09-Dec-2018 05:48:30 UTC] PHP Warning:  include(): Failed opening 'inc/modals.php' for inclusion (include_path='.:/usr/share/php:/usr/share/pear') in /home/ubuntu/workspace/cst336-final-project/inc/header.php on line 97
+[09-Dec-2018 05:48:30 UTC] PHP Stack trace:
+[09-Dec-2018 05:48:30 UTC] PHP   1. {main}() /home/ubuntu/workspace/cst336-final-project/inc/header.php:0
+[09-Dec-2018 05:48:32 UTC] PHP Warning:  include(inc/functions.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/cst336-final-project/inc/header.php on line 3
+[09-Dec-2018 05:48:32 UTC] PHP Stack trace:
+[09-Dec-2018 05:48:32 UTC] PHP   1. {main}() /home/ubuntu/workspace/cst336-final-project/inc/header.php:0
+[09-Dec-2018 05:48:32 UTC] PHP Warning:  include(): Failed opening 'inc/functions.php' for inclusion (include_path='.:/usr/share/php:/usr/share/pear') in /home/ubuntu/workspace/cst336-final-project/inc/header.php on line 3
+[09-Dec-2018 05:48:32 UTC] PHP Stack trace:
+[09-Dec-2018 05:48:32 UTC] PHP   1. {main}() /home/ubuntu/workspace/cst336-final-project/inc/header.php:0
+[09-Dec-2018 05:48:32 UTC] PHP Warning:  include(inc/modals.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/cst336-final-project/inc/header.php on line 97
+[09-Dec-2018 05:48:32 UTC] PHP Stack trace:
+[09-Dec-2018 05:48:32 UTC] PHP   1. {main}() /home/ubuntu/workspace/cst336-final-project/inc/header.php:0
+[09-Dec-2018 05:48:32 UTC] PHP Warning:  include(): Failed opening 'inc/modals.php' for inclusion (include_path='.:/usr/share/php:/usr/share/pear') in /home/ubuntu/workspace/cst336-final-project/inc/header.php on line 97
+[09-Dec-2018 05:48:32 UTC] PHP Stack trace:
+[09-Dec-2018 05:48:32 UTC] PHP   1. {main}() /home/ubuntu/workspace/cst336-final-project/inc/header.php:0
+[09-Dec-2018 05:48:48 UTC] PHP Warning:  include(inc/functions.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/cst336-final-project/inc/header.php on line 3
+[09-Dec-2018 05:48:48 UTC] PHP Stack trace:
+[09-Dec-2018 05:48:48 UTC] PHP   1. {main}() /home/ubuntu/workspace/cst336-final-project/inc/header.php:0
+[09-Dec-2018 05:48:48 UTC] PHP Warning:  include(): Failed opening 'inc/functions.php' for inclusion (include_path='.:/usr/share/php:/usr/share/pear') in /home/ubuntu/workspace/cst336-final-project/inc/header.php on line 3
+[09-Dec-2018 05:48:48 UTC] PHP Stack trace:
+[09-Dec-2018 05:48:48 UTC] PHP   1. {main}() /home/ubuntu/workspace/cst336-final-project/inc/header.php:0
+[09-Dec-2018 05:48:48 UTC] PHP Warning:  include(inc/modals.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/cst336-final-project/inc/header.php on line 97
+[09-Dec-2018 05:48:48 UTC] PHP Stack trace:
+[09-Dec-2018 05:48:48 UTC] PHP   1. {main}() /home/ubuntu/workspace/cst336-final-project/inc/header.php:0
+[09-Dec-2018 05:48:48 UTC] PHP Warning:  include(): Failed opening 'inc/modals.php' for inclusion (include_path='.:/usr/share/php:/usr/share/pear') in /home/ubuntu/workspace/cst336-final-project/inc/header.php on line 97
+[09-Dec-2018 05:48:48 UTC] PHP Stack trace:
+[09-Dec-2018 05:48:48 UTC] PHP   1. {main}() /home/ubuntu/workspace/cst336-final-project/inc/header.php:0
+[09-Dec-2018 06:20:39 UTC] PHP Warning:  include(inc/functions.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/cst336-final-project/inc/header.php on line 3
+[09-Dec-2018 06:20:39 UTC] PHP Stack trace:
+[09-Dec-2018 06:20:39 UTC] PHP   1. {main}() /home/ubuntu/workspace/cst336-final-project/inc/header.php:0
+[09-Dec-2018 06:20:39 UTC] PHP Warning:  include(): Failed opening 'inc/functions.php' for inclusion (include_path='.:/usr/share/php:/usr/share/pear') in /home/ubuntu/workspace/cst336-final-project/inc/header.php on line 3
+[09-Dec-2018 06:20:39 UTC] PHP Stack trace:
+[09-Dec-2018 06:20:39 UTC] PHP   1. {main}() /home/ubuntu/workspace/cst336-final-project/inc/header.php:0
+[09-Dec-2018 06:20:39 UTC] PHP Warning:  include(inc/modals.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/cst336-final-project/inc/header.php on line 97
+[09-Dec-2018 06:20:39 UTC] PHP Stack trace:
+[09-Dec-2018 06:20:39 UTC] PHP   1. {main}() /home/ubuntu/workspace/cst336-final-project/inc/header.php:0
+[09-Dec-2018 06:20:39 UTC] PHP Warning:  include(): Failed opening 'inc/modals.php' for inclusion (include_path='.:/usr/share/php:/usr/share/pear') in /home/ubuntu/workspace/cst336-final-project/inc/header.php on line 97
+[09-Dec-2018 06:20:39 UTC] PHP Stack trace:
+[09-Dec-2018 06:20:39 UTC] PHP   1. {main}() /home/ubuntu/workspace/cst336-final-project/inc/header.php:0
+[09-Dec-2018 06:21:13 UTC] PHP Warning:  include(inc/functions.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/cst336-final-project/inc/header.php on line 3
+[09-Dec-2018 06:21:13 UTC] PHP Stack trace:
+[09-Dec-2018 06:21:13 UTC] PHP   1. {main}() /home/ubuntu/workspace/cst336-final-project/inc/header.php:0
+[09-Dec-2018 06:21:13 UTC] PHP Warning:  include(): Failed opening 'inc/functions.php' for inclusion (include_path='.:/usr/share/php:/usr/share/pear') in /home/ubuntu/workspace/cst336-final-project/inc/header.php on line 3
+[09-Dec-2018 06:21:13 UTC] PHP Stack trace:
+[09-Dec-2018 06:21:13 UTC] PHP   1. {main}() /home/ubuntu/workspace/cst336-final-project/inc/header.php:0
+[09-Dec-2018 06:21:13 UTC] PHP Warning:  include(inc/modals.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/cst336-final-project/inc/header.php on line 97
+[09-Dec-2018 06:21:13 UTC] PHP Stack trace:
+[09-Dec-2018 06:21:13 UTC] PHP   1. {main}() /home/ubuntu/workspace/cst336-final-project/inc/header.php:0
+[09-Dec-2018 06:21:13 UTC] PHP Warning:  include(): Failed opening 'inc/modals.php' for inclusion (include_path='.:/usr/share/php:/usr/share/pear') in /home/ubuntu/workspace/cst336-final-project/inc/header.php on line 97
+[09-Dec-2018 06:21:13 UTC] PHP Stack trace:
+[09-Dec-2018 06:21:13 UTC] PHP   1. {main}() /home/ubuntu/workspace/cst336-final-project/inc/header.php:0
+[09-Dec-2018 06:21:16 UTC] PHP Fatal error:  Call to undefined function addToCard() in /home/ubuntu/workspace/cst336-final-project/inc/functions.php on line 24
+[09-Dec-2018 06:21:16 UTC] PHP Stack trace:
+[09-Dec-2018 06:21:16 UTC] PHP   1. {main}() /home/ubuntu/workspace/cst336-final-project/inc/functions.php:0
+[09-Dec-2018 06:21:21 UTC] PHP Fatal error:  Call to undefined function addToCard() in /home/ubuntu/workspace/cst336-final-project/inc/functions.php on line 24
+[09-Dec-2018 06:21:21 UTC] PHP Stack trace:
+[09-Dec-2018 06:21:21 UTC] PHP   1. {main}() /home/ubuntu/workspace/cst336-final-project/inc/functions.php:0
+[09-Dec-2018 06:21:22 UTC] PHP Fatal error:  Call to undefined function addToCard() in /home/ubuntu/workspace/cst336-final-project/inc/functions.php on line 24
+[09-Dec-2018 06:21:22 UTC] PHP Stack trace:
+[09-Dec-2018 06:21:22 UTC] PHP   1. {main}() /home/ubuntu/workspace/cst336-final-project/inc/functions.php:0
+[09-Dec-2018 06:21:23 UTC] PHP Fatal error:  Call to undefined function addToCard() in /home/ubuntu/workspace/cst336-final-project/inc/functions.php on line 24
+[09-Dec-2018 06:21:23 UTC] PHP Stack trace:
+[09-Dec-2018 06:21:23 UTC] PHP   1. {main}() /home/ubuntu/workspace/cst336-final-project/inc/functions.php:0
+[09-Dec-2018 06:21:26 UTC] PHP Fatal error:  Call to undefined function addToCard() in /home/ubuntu/workspace/cst336-final-project/inc/functions.php on line 24
+[09-Dec-2018 06:21:26 UTC] PHP Stack trace:
+[09-Dec-2018 06:21:26 UTC] PHP   1. {main}() /home/ubuntu/workspace/cst336-final-project/inc/functions.php:0
+[09-Dec-2018 06:21:28 UTC] PHP Fatal error:  Call to undefined function addToCard() in /home/ubuntu/workspace/cst336-final-project/inc/functions.php on line 24
+[09-Dec-2018 06:21:28 UTC] PHP Stack trace:
+[09-Dec-2018 06:21:28 UTC] PHP   1. {main}() /home/ubuntu/workspace/cst336-final-project/inc/functions.php:0
+[09-Dec-2018 06:21:41 UTC] PHP Warning:  include(inc/functions.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/cst336-final-project/inc/header.php on line 3
+[09-Dec-2018 06:21:41 UTC] PHP Stack trace:
+[09-Dec-2018 06:21:41 UTC] PHP   1. {main}() /home/ubuntu/workspace/cst336-final-project/inc/header.php:0
+[09-Dec-2018 06:21:41 UTC] PHP Warning:  include(): Failed opening 'inc/functions.php' for inclusion (include_path='.:/usr/share/php:/usr/share/pear') in /home/ubuntu/workspace/cst336-final-project/inc/header.php on line 3
+[09-Dec-2018 06:21:41 UTC] PHP Stack trace:
+[09-Dec-2018 06:21:41 UTC] PHP   1. {main}() /home/ubuntu/workspace/cst336-final-project/inc/header.php:0
+[09-Dec-2018 06:21:41 UTC] PHP Warning:  include(inc/modals.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/cst336-final-project/inc/header.php on line 97
+[09-Dec-2018 06:21:41 UTC] PHP Stack trace:
+[09-Dec-2018 06:21:41 UTC] PHP   1. {main}() /home/ubuntu/workspace/cst336-final-project/inc/header.php:0
+[09-Dec-2018 06:21:41 UTC] PHP Warning:  include(): Failed opening 'inc/modals.php' for inclusion (include_path='.:/usr/share/php:/usr/share/pear') in /home/ubuntu/workspace/cst336-final-project/inc/header.php on line 97
+[09-Dec-2018 06:21:41 UTC] PHP Stack trace:
+[09-Dec-2018 06:21:41 UTC] PHP   1. {main}() /home/ubuntu/workspace/cst336-final-project/inc/header.php:0
+[09-Dec-2018 06:22:23 UTC] PHP Warning:  include(inc/functions.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/cst336-final-project/inc/header.php on line 3
+[09-Dec-2018 06:22:23 UTC] PHP Stack trace:
+[09-Dec-2018 06:22:23 UTC] PHP   1. {main}() /home/ubuntu/workspace/cst336-final-project/inc/header.php:0
+[09-Dec-2018 06:22:23 UTC] PHP Warning:  include(): Failed opening 'inc/functions.php' for inclusion (include_path='.:/usr/share/php:/usr/share/pear') in /home/ubuntu/workspace/cst336-final-project/inc/header.php on line 3
+[09-Dec-2018 06:22:23 UTC] PHP Stack trace:
+[09-Dec-2018 06:22:23 UTC] PHP   1. {main}() /home/ubuntu/workspace/cst336-final-project/inc/header.php:0
+[09-Dec-2018 06:22:23 UTC] PHP Warning:  include(inc/modals.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/cst336-final-project/inc/header.php on line 97
+[09-Dec-2018 06:22:23 UTC] PHP Stack trace:
+[09-Dec-2018 06:22:23 UTC] PHP   1. {main}() /home/ubuntu/workspace/cst336-final-project/inc/header.php:0
+[09-Dec-2018 06:22:23 UTC] PHP Warning:  include(): Failed opening 'inc/modals.php' for inclusion (include_path='.:/usr/share/php:/usr/share/pear') in /home/ubuntu/workspace/cst336-final-project/inc/header.php on line 97
+[09-Dec-2018 06:22:23 UTC] PHP Stack trace:
+[09-Dec-2018 06:22:23 UTC] PHP   1. {main}() /home/ubuntu/workspace/cst336-final-project/inc/header.php:0
+[09-Dec-2018 06:22:30 UTC] PHP Warning:  include(inc/functions.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/cst336-final-project/inc/header.php on line 3
+[09-Dec-2018 06:22:30 UTC] PHP Stack trace:
+[09-Dec-2018 06:22:30 UTC] PHP   1. {main}() /home/ubuntu/workspace/cst336-final-project/inc/header.php:0
+[09-Dec-2018 06:22:30 UTC] PHP Warning:  include(): Failed opening 'inc/functions.php' for inclusion (include_path='.:/usr/share/php:/usr/share/pear') in /home/ubuntu/workspace/cst336-final-project/inc/header.php on line 3
+[09-Dec-2018 06:22:30 UTC] PHP Stack trace:
+[09-Dec-2018 06:22:30 UTC] PHP   1. {main}() /home/ubuntu/workspace/cst336-final-project/inc/header.php:0
+[09-Dec-2018 06:22:30 UTC] PHP Warning:  include(inc/modals.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/cst336-final-project/inc/header.php on line 97
+[09-Dec-2018 06:22:30 UTC] PHP Stack trace:
+[09-Dec-2018 06:22:30 UTC] PHP   1. {main}() /home/ubuntu/workspace/cst336-final-project/inc/header.php:0
+[09-Dec-2018 06:22:30 UTC] PHP Warning:  include(): Failed opening 'inc/modals.php' for inclusion (include_path='.:/usr/share/php:/usr/share/pear') in /home/ubuntu/workspace/cst336-final-project/inc/header.php on line 97
+[09-Dec-2018 06:22:30 UTC] PHP Stack trace:
+[09-Dec-2018 06:22:30 UTC] PHP   1. {main}() /home/ubuntu/workspace/cst336-final-project/inc/header.php:0
