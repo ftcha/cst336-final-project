@@ -58,17 +58,25 @@
           </div>
       </div>
       <br /><br />
-    
-    <?php 
-        if(isset($_POST['searchVal']) and $_POST['searchVal'] != ''){
-            searchProduct($_POST['searchVal']);
-        }else if(isset($_POST['title']) or isset($_POST['description'])){
-            advancedProductSearch($_POST['title'], $_POST['description'], $_POST['priceMin'], $_POST['priceMax'], $_POST['orderTitle'], $_POST['orderPrice'], $_POST['orderDesc']);
-        }else{
-          displayAllProducts(); 
-        }
-    ?>
-      
+        
+            <?php 
+              
+                if(isset($_POST['searchVal']) and $_POST['searchVal'] != ''){
+                    echo "<div id='productDisplay'>";
+                    searchProduct($_POST['searchVal']);
+                    echo "</div>";
+                }else if(isset($_POST['title']) or isset($_POST['description'])){
+                    echo "<div id='productDisplay'>";
+                    advancedProductSearch($_POST['title'], $_POST['description'], $_POST['priceMin'], $_POST['priceMax'], $_POST['orderTitle'], $_POST['orderPrice'], $_POST['orderDesc']);
+                    echo "</div>";
+                }else{
+                    echo "<div id='productDisplay'>";
+                    displayAllProducts();
+                    echo "</div>";
+                }
+                
+            ?>
+       
   </div>
 
 <?php

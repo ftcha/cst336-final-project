@@ -21,7 +21,15 @@
         }
         
         if($_POST['action'] == 'addToCart'){
-            addToCart($_POST['itemNum']);
+            echo addToCart($_POST['itemNum']);
+        }
+        
+        if($_POST['action'] == 'getCart'){
+            echo getCart();
+        }
+        
+        if($_POST['action'] == 'removeFromCart'){
+            echo removeFromCart($_POST['itemNum']);
         }
     }
 
@@ -215,7 +223,7 @@
         echo "<table class='table table-hover'><tbody>";
         
         foreach($records as $record){
-                echo "<tr>";
+                echo "<tr class='productRecord'>";
                 echo "<td>" . "<img src='" . $record["imageURL"] . "' style='height:250px; width:160px;'>" . "</td>";
                 echo "<td class='col-md-3'><strong>" . $record["NAME"] . "</strong></td>";
                 echo "<td><em>$" . $record["price"] . "</em></td>";
@@ -234,17 +242,23 @@
     }
     
     function addToCart($itemNum){
-        
-        $cart_item['itemId']=$itemNum;
-
-        if(inCart($itemNum)){
-            $item['quantity']++;
+        $returnArr=array();
+        if(isset($_SESSION['loggedIn']) and $_SESSION['loggedIn']){
+            $cart_item['itemId']=$itemNum;
+    
+            if(inCart($itemNum)){
+                $item['quantity']++;
+            }else{
+                $cart_item['quantity']=1;
+                array_push($_SESSION['cart'], $cart_item);
+            }
+            
+            $returnArr['cartCount']=cartCount();
+            $returnArr['result']='added';
         }else{
-            $cart_item['quantity']=1;
-            array_push($_SESSION['cart'], $cart_item);
+            $returnArr['result']='notLoggedIn';
         }
-        
-        echo cartCount();
+        return json_encode($returnArr);
     }
     
     
@@ -268,6 +282,96 @@
         }
         
         return $count;
+    }
+    
+    function getCart(){
+        global $conn;
+        $taxRate=getUserTaxRate();
+        $shipping=getUserShipping();
+        $total=0;
+        $tax=0;
+        $cartAsString="";
+        
+        $cartAsString.="<table id='cartTable' class='table table-hover'>";
+        
+        
+        if(empty($_SESSION['cart'])){
+            $cartAsString.="<td class='text-center'><strong>Cart Empty</strong></td>"; 
+        }else{
+            $cartAsString.="<thead><th>Title</th><th>Price</th></th><th></th></thead>";
+        }
+        
+        foreach($_SESSION['cart'] as $item){
+            $sql = "SELECT name, price 
+                    FROM product
+                    WHERE productId=".$item['itemId'];
+                  
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            $record = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+            $cartAsString.="<tr>";
+            $cartAsString.="<td>".$record['name']."</td><td>".$record['price']."</td><td><button class='btn btn-danger removeFromCartBtn' id='".$item['itemId']."'>REMOVE FROM CART</button></td>";
+            $cartAsString.="</tr>";
+            $tax+=($record['price'] * $taxRate);
+            $total+=($record['price']);
+        }
+        
+        $total=money_format('%.2n', $total);
+        $tax=money_format('%.2n',$tax);
+        $hsipping=money_format('$.2n', $shipping);
+        
+        $cartAsString.="</table>";
+        $cartAsString.="<hr />";
+        $cartAsString.="<strong>Total: $".($total)."<br />Tax: $".$tax."<br />Shipping: $".$shipping."</strong>";
+        $cartAsString.="<hr/>";
+        $cartAsString.="<h3><strong>$".($total + $tax + $shipping)."</strong></h3>";
+        $cartAsString.="<button class='btn btn-primary' id='checkoutBtn'>Checkout</button>";
+        
+        return $cartAsString;
+    }
+    
+    function getUserTaxRate(){
+        global $conn;
+        $rate=0;
+        $sql = "SELECT stateTax FROM states s
+	              JOIN user_states us ON
+		          s.stateCode = us.stateCode
+                WHERE userID=".$_SESSION['userId'];
+                  
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $record = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        $rate=$record['stateTax'];
+        return $rate;
+    }
+    
+    function getUserShipping(){
+        global $conn;
+        $shipping=0;
+        
+        $sql = "SELECT shipping FROM states s
+	              JOIN user_states us ON
+		          s.stateCode = us.stateCode
+                WHERE userID=".$_SESSION['userId'];
+                  
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $record = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        $shipping=$record['shipping'];
+        return $shipping;
+    }
+    
+    function removeFromCart($itemNum){
+        foreach($_SESSION['cart'] as $itemKey => $item){
+            if($item['itemId'] == $itemNum){
+                unset($_SESSION['cart'][$itemKey]);
+            }
+        }
+        
+        return getCart();
     }
     
 ?>

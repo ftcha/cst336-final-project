@@ -36,16 +36,55 @@ $(document).on("click", "#signupBtn", function(event){
     });
 });
 
+$(document).on("click", "#cartBtn", function(event){
+   $('#cartModal').modal("show"); 
+   $('#cart').html("<div class='text-center'><img src='img/loading.gif'></div>");
+   
+   $.ajax({
+        type: "POST",
+        url: 'inc/functions.php',
+        dataType: "text",
+        data:{action: 'getCart'},
+        success: function(data, status){
+            $('#cart').html(data);
+            $("#cartModalLabel").html("<span class='modalTitle text-center'>Cart</span>");
+        },
+        complete: function(data, status){ // Used for debugging purposes
+           
+        }
+   });
+});
+
+$(document).on("click", ".removeFromCartBtn", function(event){
+    var itemNum=$(this).attr('id');
+    
+    $.ajax({
+        type: "POST",
+        url: 'inc/functions.php',
+        dataType: "text",
+        data:{action: 'removeFromCart', itemNum: itemNum},
+        success:function(data, status){ //removes cart then returns new cart minus deleted item as string up update cart in real time
+            $("#cart").html(data);
+            $("#cartModalLabel").html("<span class='modalTitle text-center'>Cart</span>");
+            $("#navigation").load('inc/header.php #navigation');
+            document.getElementById(itemNum).value = "Add to Cart";
+            document.getElementById(itemNum).disabled = false;
+            document.getElementById(itemNum).className= "btn btn-primary btn-block addToCartBtn";
+        },
+        complete: function(){ // Used for debugging purposes
+        }
+    });
+});
+
 $(document).on("click" ,"#logoutBtn", function(event){
     $.ajax({
-       type: "POST",
-       url: "inc/functions.php",
-       data:{action: 'logout'},
-       success:function(){
-           location.reload();
-       },
-       complete: function(){ // Used for debugging purposes
-       }
+        type: "POST",
+        url: "inc/functions.php",
+        dataType: "none",
+        data:{action: 'logout'},
+        complete: function(){
+        location.reload();
+        }
     });
 });
 
@@ -107,12 +146,18 @@ $(document).on("click", ".addToCartBtn", function(event){
     $.ajax({
         type: "POST",
         url: "inc/functions.php",
-        dataType: "text",
+        dataType: "json",
         data: {action: 'addToCart', itemNum: itemNum},
+        success: function(data, status){
+            if(data.result=='added'){
+                document.getElementById(itemNum).value = "Added!";
+                document.getElementById(itemNum).disabled = true;
+                $("#cartCount").html(data.cartCount);
+            }else if(data.result=='notLoggedIn'){
+                alert("You must log in or sign up to be able to add items to your cart.");
+            }
+        },
         complete: function(data, status){
-            document.getElementById(itemNum).value = "Added!";
-            document.getElementById(itemNum).disabled = true;
-            $("#cartCount").html(data.responseText);
         }
     });
 });

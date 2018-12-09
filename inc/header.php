@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include 'inc/functions.php';
+    include 'functions.php';
     
     if (empty($_SESSION['cart'])){
         $_SESSION['cart'] = array();
@@ -77,8 +77,7 @@
                         <!-- If user is logged in then show cart else show sign up button-->
                         <?=$_SESSION['loggedIn']==true?'
                             <li>
-                                <a href="#">
-                                <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>&nbsp;Cart: <span id="cartCount">'.(function_exists('cartCount')?cartCount():0).'</span></a>
+                                <a href="#" id="cartBtn"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>&nbsp;Cart: <span id="cartCount">'.cartCount().'</span></a>
                                 <li><a href="#" id="logoutBtn"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Logout</a></li>
                             </li>'
                         :'
@@ -93,6 +92,5 @@
         </nav>
         
 <?php
-    include 'inc/modals.php';
-    
+    include 'modals.php';
 ?>
