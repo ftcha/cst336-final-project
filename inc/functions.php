@@ -436,7 +436,7 @@
         $stmt->execute();
         
         foreach($_SESSION['cart'] as $item){
-            $sql = "SELECT price 
+            $sql = "SELECT price, name 
                     FROM product
                     WHERE productId=".$item['itemId'];
                   
@@ -447,7 +447,7 @@
             $tax+=($record['price'] * $taxRate);
             $total+=($record['price']);
             
-            $sql = "INSERT INTO transactionDetails VALUES (".$tranId.", ".$lineNumber.", ".$item['itemId'].")";
+            $sql = "INSERT INTO transactionDetails VALUES (".$tranId.", ".$lineNumber.", '".$record['name']."', ".$record['price'].")";
             $stmt = $conn->prepare($sql);
             $stmt->execute();
             $lineNumber++;

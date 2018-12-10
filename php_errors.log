@@ -3,3 +3,15 @@ Stack trace:
 #0 /home/ubuntu/workspace/cst336-final-project/inc/deleteProduct.php(13): PDOStatement->execute()
 #1 {main}
   thrown in /home/ubuntu/workspace/cst336-final-project/inc/deleteProduct.php on line 13
+[10-Dec-2018 04:16:08 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Few Good Men, 5.69)' at line 1' in /home/ubuntu/workspace/cst336-final-project/inc/functions.php:452
+Stack trace:
+#0 /home/ubuntu/workspace/cst336-final-project/inc/functions.php(452): PDOStatement->execute()
+#1 /home/ubuntu/workspace/cst336-final-project/inc/functions.php(36): checkout()
+#2 {main}
+  thrown in /home/ubuntu/workspace/cst336-final-project/inc/functions.php on line 452
+[10-Dec-2018 04:16:11 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Few Good Men, 5.69)' at line 1' in /home/ubuntu/workspace/cst336-final-project/inc/functions.php:452
+Stack trace:
+#0 /home/ubuntu/workspace/cst336-final-project/inc/functions.php(452): PDOStatement->execute()
+#1 /home/ubuntu/workspace/cst336-final-project/inc/functions.php(36): checkout()
+#2 {main}
+  thrown in /home/ubuntu/workspace/cst336-final-project/inc/functions.php on line 452

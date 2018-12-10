@@ -2,7 +2,7 @@
 -- *************** Tom Cruise Emporium ***************;
 
 SET FOREIGN_KEY_CHECKS = 0;
-DROP TABLE IF EXISTS user_roles, TRANSACTION, users, states, roles, product, transactionDetails;
+DROP TABLE IF EXISTS user_roles, TRANSACTION, users, states, roles, transactionDetails, product;
 SET FOREIGN_KEY_CHECKS = 1;
 SET @@auto_increment_increment = 1;
 
@@ -82,10 +82,10 @@ CREATE TABLE transactionDetails
 (
  tranId     INT NOT NULL ,
  lineNumber INT NOT NULL ,
- productId  INT NOT NULL ,
+ NAME        VARCHAR(45) NOT NULL ,
+ price       DECIMAL(10,2) NOT NULL ,
  PRIMARY KEY (tranId, lineNumber),
- CONSTRAINT FK_transactionDet_transaction FOREIGN KEY (tranId) REFERENCES TRANSACTION (tranId),
- CONSTRAINT FK_transaction_product FOREIGN KEY (productId) REFERENCES product (productId)
+ CONSTRAINT FK_transactionDet_transaction FOREIGN KEY (tranId) REFERENCES TRANSACTION (tranId)
 );
 
 
