@@ -456,7 +456,7 @@
         $total=money_format('%.2n', $total);
         $tax=money_format('%.2n',$tax);
 
-        $sql = "UPDATE TRANSACTION SET totalPrice=".$total.", tax=".$tax." WHERE tranId=".$tranId;
+        $sql = "UPDATE TRANSACTION SET subtotal=".$total.", tax=".$tax." WHERE tranId=".$tranId;
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         
