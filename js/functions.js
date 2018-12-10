@@ -55,6 +55,20 @@ $(document).on("click", "#cartBtn", function(event){
    });
 });
 
+$(document).on("click", "#checkoutBtn", function(event){
+    $.ajax({
+        type: 'POST',
+        url: 'inc/functions.php',
+        dataType: "none",
+        data:{action: "checkout"},
+        complete: function(data, status){
+            alert("Checkout Complete!");
+            $('#cartModal').modal('toggle');
+            location.reload();
+        }
+    });
+});
+
 $(document).on("click", ".removeFromCartBtn", function(event){
     var itemNum=$(this).attr('id');
     

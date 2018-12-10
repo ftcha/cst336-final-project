@@ -31,6 +31,10 @@
         if($_POST['action'] == 'removeFromCart'){
             echo removeFromCart($_POST['itemNum']);
         }
+        
+        if($_POST['action'] == 'checkout'){
+            checkout();
+        }
     }
 
     function getStateCodes(){
@@ -319,7 +323,7 @@
         
         $total=money_format('%.2n', $total);
         $tax=money_format('%.2n',$tax);
-        $hsipping=money_format('$.2n', $shipping);
+        $shipping=money_format('%.2n', $shipping);
         
         $cartAsString.="</table>";
         $cartAsString.="<hr />";
@@ -372,6 +376,60 @@
         }
         
         return getCart();
+    }
+    
+    function checkout(){
+        global $conn;
+        $taxRate=getUserTaxRate();
+        $shipping=getUserShipping();
+        $total=0;
+        $tax=0;
+        $tranId=1;
+        $lineNumber=1;
+        
+        $sql = "SELECT MAX(tranId) AS lastTran FROM TRANSACTION";
+        
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $record = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        if(!empty($record['lastTran'])){
+            $tranId = $record['lastTran'] + 1;
+        }
+        
+        $sql = "INSERT INTO TRANSACTION VALUES (".$tranId.", 0.0, 0.0, ".$shipping.", ".$_SESSION['userId'].")";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        
+        foreach($_SESSION['cart'] as $item){
+            $sql = "SELECT price 
+                    FROM product
+                    WHERE productId=".$item['itemId'];
+                  
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            $record = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            $tax+=($record['price'] * $taxRate);
+            $total+=($record['price']);
+            
+            $sql = "INSERT INTO transactionDetails VALUES (".$tranId.", ".$lineNumber.", ".$item['itemId'].")";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            $lineNumber++;
+        }
+        
+        $total=money_format('%.2n', $total);
+        $tax=money_format('%.2n',$tax);
+
+        $sql = "UPDATE TRANSACTION SET totalPrice=".$total.", tax=".$tax." WHERE tranId=".$tranId;
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        
+        foreach($_SESSION['cart'] as $itemKey => $item){
+            unset($_SESSION['cart'][$itemKey]);
+        }
+        
     }
     
 ?>
