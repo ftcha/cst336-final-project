@@ -1,31 +1,29 @@
 <?php
     session_start();
+    
+    if(!isset($_SESSION['isAdmin']) or !$_SESSION['isAdmin']){
+        header("Location:index.php");
+    }
+    
     include 'inc/header.php';
     $conn=getDatabaseConnection();
     
-    function getAllProducts(){
-        global $conn;
-        $sql = "SELECT * 
-                FROM product 
-                ORDER BY NAME";
-                
-        $stmt = $conn->prepare($sql);
-        $stmt->execute();
-        $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
-        return $records;
-    }
+    $sql = "SELECT userName, tranId, FORMAT(subtotal, 2) AS Subtotal, tax, shipping, FORMAT((subtotal + tax + shipping), 2) AS total FROM TRANSACTION t
+              JOIN users u ON
+	            t.userId = u.userId";
     
-    function getAveragePrice($array){
-        $total = 0;
-        foreach($array as $arrayItem){
-            $total = $total + $arrayItem['price'];
-        }
-        
-        $average = number_format((float)$total/count($array), 2, '.', '');
-        
-        return $average;
-    }
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+    
+   $sql = "SELECT FORMAT(SUM(subtotal), 2) AS sumTotal, FORMAT(SUM(tax), 2) AS sumTax, FORMAT(SUM(shipping), 2) AS sumShipping, FORMAT(SUM(subtotal + tax + shipping), 2) AS sumSum FROM TRANSACTION t
+             JOIN users u ON
+	           t.userId = u.userId";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $agg = $stmt->fetch(PDO::FETCH_ASSOC);
+
 ?>
 
 <div class="container">
@@ -33,17 +31,44 @@
     
     <ul class="nav nav-tabs">
         <li><a href="report1.php">Average Price</a></li>
-        <li class="active"><a href="report2.php">Report2</a></li>
-        <li><a href="#">Report3</a></li>
+        <li class="active"><a href="report2.php">Transaction Report</a></li>
+        <li><a href="report3.php">Transaction Detail Report</a></li>
         <li><a href="#">Report4</a></li>
     </ul>
     <br />
-  
-    <?php 
-        $allProducts = getAllProducts();
-        echo "Average price of all products is $" . getAveragePrice($allProducts) . ".";
-        echo "<br><br>";
-    ?>
+    
+    <table class='table table-hover'>
+        <thead>
+            <th>Name</th>
+            <th>Transaction Number</th>
+            <th>Subtotal</th>
+            <th>Tax</th>
+            <th>Shipping</th>
+            <th>Total</th>
+        </thead>
+        <tbody>
+            <?php 
+                foreach($records as $record){
+                    echo "<tr>";
+                    echo "<td>".$record['userName'] ."</td>";
+                    echo "<td>".$record['tranId']."</td>";
+                    echo "<td>".$record['Subtotal']."</td>";
+                    echo "<td>".$record['tax']."</td>";
+                    echo "<td>".$record['shipping']."</td>";
+                    echo "<td>".$record['total']."</td>";
+                    echo "</tr>";
+                }
+                echo "<tr>";
+                echo "<td></td>";
+                echo "<td></td>";
+                echo "<td><strong>".$agg['sumTotal']."</strong></td>";
+                echo "<td><strong>".$agg['sumTax']."</strong></td>";
+                echo "<td><strong>".$agg['sumShipping']."</strong></td>";
+                echo "<td><strong>".$agg['sumSum']."</strong></td>";
+                echo "<tr>";
+            ?>
+        </tbody>
+    </table>
 </div>
   
 <?php
