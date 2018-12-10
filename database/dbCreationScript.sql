@@ -2,7 +2,7 @@
 -- *************** Tom Cruise Emporium ***************;
 
 SET FOREIGN_KEY_CHECKS = 0;
-DROP TABLE IF EXISTS user_roles, TRANSACTION, users, states, roles, product;
+DROP TABLE IF EXISTS user_roles, TRANSACTION, users, states, roles, product, transactionDetails;
 SET FOREIGN_KEY_CHECKS = 1;
 SET @@auto_increment_increment = 1;
 
@@ -66,18 +66,26 @@ CONSTRAINT FK_user_roles_roles FOREIGN KEY (roleId) REFERENCES roles (roleId)
 );
 
 -- ************************************** `transaction`
-
 CREATE TABLE TRANSACTION
+(
+ tranId INT NOT NULL,
+ totalPrice FLOAT,
+ tax FLOAT,
+ shipping FLOAT,
+ userId TINYINT NOT NULL,
+ PRIMARY KEY(tranId),
+ CONSTRAINT FK_transaction_user FOREIGN KEY (userId) REFERENCES users (userId)
+);
+
+-- ************************************** `transactionDetails`
+CREATE TABLE transactionDetails
 (
  tranId     INT NOT NULL ,
  lineNumber INT NOT NULL ,
  productId  INT NOT NULL ,
- stateCode  VARCHAR(2) NOT NULL ,
- userId     tinyint NOT NULL ,
-PRIMARY KEY (tranId, lineNumber),
-CONSTRAINT FK_transaction_product FOREIGN KEY (productId) REFERENCES product (productId),
-CONSTRAINT FK_transaction_state FOREIGN KEY (stateCode) REFERENCES states (stateCode),
-CONSTRAINT FK_transaction_user FOREIGN KEY (userId) REFERENCES users (userId)
+ PRIMARY KEY (tranId, lineNumber),
+ CONSTRAINT FK_transactionDet_transaction FOREIGN KEY (tranId) REFERENCES TRANSACTION (tranId),
+ CONSTRAINT FK_transaction_product FOREIGN KEY (productId) REFERENCES product (productId)
 );
 
 
