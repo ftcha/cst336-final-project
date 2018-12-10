@@ -335,8 +335,8 @@
         global $conn;
         $rate=0;
         $sql = "SELECT stateTax FROM states s
-	              JOIN user_states us ON
-		          s.stateCode = us.stateCode
+	              JOIN users u ON
+		          s.stateCode = u.stateCode
                 WHERE userID=".$_SESSION['userId'];
                   
         $stmt = $conn->prepare($sql);
@@ -352,8 +352,8 @@
         $shipping=0;
         
         $sql = "SELECT shipping FROM states s
-	              JOIN user_states us ON
-		          s.stateCode = us.stateCode
+	              JOIN users u ON
+		          s.stateCode = u.stateCode
                 WHERE userID=".$_SESSION['userId'];
                   
         $stmt = $conn->prepare($sql);
