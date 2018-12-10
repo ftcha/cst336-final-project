@@ -59,7 +59,7 @@
                         echo "</tr><tr>";
                       
                         echo "<td><strong>".$record['userName']."</strong><td>";
-                        echo "<td><strong>Transaction Id: ".$record['tranId']."</strong></td>";
+                        echo "<td><strong>Transaction Number: ".$record['tranId']."</strong></td>";
                         echo "<td><strong>Subtotal: $".$agg['subtotal']."</strong></td>";
                         echo "<td><strong>Tax: $".$agg['tax']."</strong></td>";
                         echo "<td><strong>Shipping: $".$agg['shipping']."</strong></td>";
