@@ -2,7 +2,7 @@
 -- *************** Tom Cruise Emporium ***************;
 
 SET FOREIGN_KEY_CHECKS = 0;
-DROP TABLE IF EXISTS user_roles, TRANSACTION, users, states, roles, transactionDetails, product;
+DROP TABLE IF EXISTS user_roles, TRANSACTION, transactionDetails, users, states, roles, product;
 SET FOREIGN_KEY_CHECKS = 1;
 SET @@auto_increment_increment = 1;
 
@@ -17,18 +17,20 @@ CREATE TABLE states
 PRIMARY KEY (stateCode)
 );
 
+
 -- ************************************** `users`
 
 CREATE TABLE users
 (
  userId   TINYINT NOT NULL AUTO_INCREMENT ,
- userName VARCHAR(16) NOT NULL ,
+ userName VARCHAR(40) NOT NULL ,
  PASSWORD CHAR(40) NOT NULL ,
  stateCode VARCHAR(2) NOT NULL ,
 PRIMARY KEY (userId),
 UNIQUE(userName),
 CONSTRAINT FK_users_state FOREIGN KEY (stateCode) REFERENCES states (stateCode)
 );
+
 
 -- ************************************** `roles`
 
@@ -65,11 +67,13 @@ CONSTRAINT FK_user_roles_user FOREIGN KEY (userId) REFERENCES users (userId),
 CONSTRAINT FK_user_roles_roles FOREIGN KEY (roleId) REFERENCES roles (roleId)
 );
 
+
 -- ************************************** `transaction`
+
 CREATE TABLE TRANSACTION
 (
- tranId INT NOT NULL,
- totalPrice FLOAT,
+ tranId INT NOT NULL AUTO_INCREMENT ,
+ subtotal FLOAT,
  tax FLOAT,
  shipping FLOAT,
  userId TINYINT NOT NULL,
@@ -77,15 +81,17 @@ CREATE TABLE TRANSACTION
  CONSTRAINT FK_transaction_user FOREIGN KEY (userId) REFERENCES users (userId)
 );
 
+
 -- ************************************** `transactionDetails`
+
 CREATE TABLE transactionDetails
 (
  tranId     INT NOT NULL ,
- lineNumber INT NOT NULL ,
- NAME        VARCHAR(45) NOT NULL ,
- price       DECIMAL(10,2) NOT NULL ,
+ lineNumber INT NOT NULL,
+ productId  INT NOT NULL ,
  PRIMARY KEY (tranId, lineNumber),
- CONSTRAINT FK_transactionDet_transaction FOREIGN KEY (tranId) REFERENCES TRANSACTION (tranId)
+ CONSTRAINT FK_transactionDet_transaction FOREIGN KEY (tranId) REFERENCES TRANSACTION (tranId),
+ CONSTRAINT FK_transaction_product FOREIGN KEY (productId) REFERENCES product (productId)
 );
 
 
@@ -149,7 +155,27 @@ INSERT INTO states (stateCode, stateTax, shipping) VALUES
 
 
 INSERT INTO users (userId, userName, PASSWORD, stateCode) VALUES
-(NULL, 'admin', SHA1('secret'), 'CA');
+(NULL, 'admin', SHA1('secret'), 'CA'),
+(NULL, 'tom.riddle', SHA1('tom.riddle'), 'AL'),
+(NULL, 'ludo.bagman', SHA1('ludo.bagman'), 'AZ'),
+(NULL, 'fleur.delacour', SHA1('fleur.delacour'), 'CO'),
+(NULL, 'lee.jordan', SHA1('lee.jordan'), 'PR'),
+(NULL, 'gilderoy.lockhart', SHA1('gilderoy.lockhart'), 'DC'),
+(NULL, 'padma.patil', SHA1('padma.patil'), 'NC'),
+(NULL, 'kingsley.shacklebolt', SHA1('kingsley.shacklebolt'), 'NY'),
+(NULL, 'dolores.umbridge', SHA1('dolores.umbridge'), 'KS'),
+(NULL, 'oliver.wood', SHA1('oliver.wood'), 'ME'),
+(NULL, 'buckbeak', SHA1('buckbeak'), 'IA'),
+(NULL, 'draco.malfoy', SHA1('draco.malfoy'), 'IL'),
+(NULL, 'neville.longbottom', SHA1('neville.longbottom'), 'CT'),
+(NULL, 'rubeus.hagrid', SHA1('rubeus.hagrid'), 'SC'),
+(NULL, 'norbert', SHA1('norbert'), 'SD'),
+(NULL, 'aurora.sinistra', SHA1('aurora.sinistra'), 'ND'),
+(NULL, 'hermione.granger', SHA1('hermione.granger'), 'HI'),
+(NULL, 'cedric.diggory', SHA1('cedric.diggory'), 'GA'),
+(NULL, 'sirius.black', SHA1('sirius.black'), 'LA'),
+(NULL, 'dennis.creevey', SHA1('dennis.creevey'), 'AR'),
+(NULL, 'viktor.krum', SHA1('viktor.krum'), 'WY');
 
 
 
@@ -184,4 +210,83 @@ INSERT INTO product (productId, NAME, description, imageURL, price) VALUES
 
 
 INSERT INTO user_roles (userId, roleId) VALUES
-( (SELECT userId FROM users WHERE userName='admin'), (SELECT roleId FROM roles WHERE roleName='Admin'));
+( (SELECT userId FROM users WHERE userName='admin'), (SELECT roleId FROM roles WHERE roleName='Admin') ),
+( (SELECT userId FROM users WHERE userName='tom.riddle'), (SELECT roleId FROM roles WHERE roleName='User') ),
+( (SELECT userId FROM users WHERE userName='ludo.bagman'), (SELECT roleId FROM roles WHERE roleName='User') ),
+( (SELECT userId FROM users WHERE userName='fleur.delacour'), (SELECT roleId FROM roles WHERE roleName='User') ),
+( (SELECT userId FROM users WHERE userName='lee.jordan'), (SELECT roleId FROM roles WHERE roleName='User') ),
+( (SELECT userId FROM users WHERE userName='gilderoy.lockhart'), (SELECT roleId FROM roles WHERE roleName='User') ),
+( (SELECT userId FROM users WHERE userName='padma.patil'), (SELECT roleId FROM roles WHERE roleName='User') ),
+( (SELECT userId FROM users WHERE userName='kingsley.shacklebolt'), (SELECT roleId FROM roles WHERE roleName='User') ),
+( (SELECT userId FROM users WHERE userName='dolores.umbridge'), (SELECT roleId FROM roles WHERE roleName='User') ),
+( (SELECT userId FROM users WHERE userName='oliver.wood'), (SELECT roleId FROM roles WHERE roleName='User') ),
+( (SELECT userId FROM users WHERE userName='buckbeak'), (SELECT roleId FROM roles WHERE roleName='User') ),
+( (SELECT userId FROM users WHERE userName='draco.malfoy'), (SELECT roleId FROM roles WHERE roleName='User') ),
+( (SELECT userId FROM users WHERE userName='neville.longbottom'), (SELECT roleId FROM roles WHERE roleName='User') ),
+( (SELECT userId FROM users WHERE userName='rubeus.hagrid'), (SELECT roleId FROM roles WHERE roleName='User') ),
+( (SELECT userId FROM users WHERE userName='norbert'), (SELECT roleId FROM roles WHERE roleName='User') ),
+( (SELECT userId FROM users WHERE userName='aurora.sinistra'), (SELECT roleId FROM roles WHERE roleName='User') ),
+( (SELECT userId FROM users WHERE userName='hermione.granger'), (SELECT roleId FROM roles WHERE roleName='User') ),
+( (SELECT userId FROM users WHERE userName='cedric.diggory'), (SELECT roleId FROM roles WHERE roleName='User') ),
+( (SELECT userId FROM users WHERE userName='sirius.black'), (SELECT roleId FROM roles WHERE roleName='User') ),
+( (SELECT userId FROM users WHERE userName='dennis.creevey'), (SELECT roleId FROM roles WHERE roleName='User') ),
+( (SELECT userId FROM users WHERE userName='viktor.krum'), (SELECT roleId FROM roles WHERE roleName='User') );
+
+
+
+INSERT INTO TRANSACTION (tranId, subtotal, tax, shipping, userId) VALUES
+(NULL, 19.66, 0.79, 7.95, (SELECT userId FROM users WHERE userName='tom.riddle') ),
+(NULL, 193.76, 10.85, 7.95, (SELECT userId FROM users WHERE userName='ludo.bagman') ),
+(NULL, 34.74, 1.01, 7.95, (SELECT userId FROM users WHERE userName='fleur.delacour') ),
+(NULL, 6.38, 0.67, 7.95, (SELECT userId FROM users WHERE userName='lee.jordan') ),
+(NULL, 1.4, 0.08, 7.95, (SELECT userId FROM users WHERE userName='gilderoy.lockhart') ),
+(NULL, 19.37, 0.92, 7.95, (SELECT userId FROM users WHERE userName='padma.patil') ),
+(NULL, 44.4, 1.78, 7.95, (SELECT userId FROM users WHERE userName='kingsley.shacklebolt') ),
+(NULL, 5.69, 0.37, 7.95, (SELECT userId FROM users WHERE userName='dolores.umbridge') ),
+(NULL, 34.76, 1.91, 7.95, (SELECT userId FROM users WHERE userName='oliver.wood') ),
+(NULL, 20.63, 1.24, 7.95, (SELECT userId FROM users WHERE userName='buckbeak') ),
+(NULL, 9.07, 0.57, 7.95, (SELECT userId FROM users WHERE userName='draco.malfoy') ),
+(NULL, 21.36, 1.36, 7.95, (SELECT userId FROM users WHERE userName='neville.longbottom') ),
+(NULL, 28.58, 1.71, 7.95, (SELECT userId FROM users WHERE userName='rubeus.hagrid') ),
+(NULL, 6.38, 0.29, 7.95, (SELECT userId FROM users WHERE userName='norbert') ),
+(NULL, 37.99, 1.9, 7.95, (SELECT userId FROM users WHERE userName='aurora.sinistra') ),
+(NULL, 24.75, 0.99, 7.95, (SELECT userId FROM users WHERE userName='hermione.granger') ),
+(NULL, 31.84, 1.27, 7.95, (SELECT userId FROM users WHERE userName='cedric.diggory') ),
+(NULL, 16.69, 0.83, 7.95, (SELECT userId FROM users WHERE userName='sirius.black') ),
+(NULL, 7.95, 0.52, 7.95, (SELECT userId FROM users WHERE userName='dennis.creevey') ),
+(NULL, 13.89, 0.56, 7.95, (SELECT userId FROM users WHERE userName='viktor.krum') );
+
+
+INSERT INTO transactionDetails (tranId, lineNumber, productId) VALUES
+( (SELECT tranId FROM TRANSACTION WHERE userId=2), 1, 3),
+( (SELECT tranId FROM TRANSACTION WHERE userId=2), 2, 18),
+( (SELECT tranId FROM TRANSACTION WHERE userId=2), 3, 7),
+( (SELECT tranId FROM TRANSACTION WHERE userId=3), 1, 1),
+( (SELECT tranId FROM TRANSACTION WHERE userId=3), 2, 2),
+( (SELECT tranId FROM TRANSACTION WHERE userId=3), 3, 3),
+( (SELECT tranId FROM TRANSACTION WHERE userId=3), 4, 4),
+( (SELECT tranId FROM TRANSACTION WHERE userId=3), 5, 5),
+( (SELECT tranId FROM TRANSACTION WHERE userId=3), 6, 6),
+( (SELECT tranId FROM TRANSACTION WHERE userId=3), 7, 7),
+( (SELECT tranId FROM TRANSACTION WHERE userId=3), 8, 8),
+( (SELECT tranId FROM TRANSACTION WHERE userId=3), 9, 9),
+( (SELECT tranId FROM TRANSACTION WHERE userId=3), 10, 10),
+( (SELECT tranId FROM TRANSACTION WHERE userId=3), 11, 11),
+( (SELECT tranId FROM TRANSACTION WHERE userId=3), 12, 12),
+( (SELECT tranId FROM TRANSACTION WHERE userId=3), 13, 13),
+( (SELECT tranId FROM TRANSACTION WHERE userId=3), 14, 14),
+( (SELECT tranId FROM TRANSACTION WHERE userId=3), 15, 15),
+( (SELECT tranId FROM TRANSACTION WHERE userId=3), 16, 16),
+( (SELECT tranId FROM TRANSACTION WHERE userId=3), 17, 17),
+( (SELECT tranId FROM TRANSACTION WHERE userId=3), 18, 18),
+( (SELECT tranId FROM TRANSACTION WHERE userId=3), 19, 19),
+( (SELECT tranId FROM TRANSACTION WHERE userId=3), 20, 20),
+( (SELECT tranId FROM TRANSACTION WHERE userId=4), 1, 4),
+( (SELECT tranId FROM TRANSACTION WHERE userId=4), 2, 6),
+( (SELECT tranId FROM TRANSACTION WHERE userId=4), 3, 10),
+( (SELECT tranId FROM TRANSACTION WHERE userId=4), 4, 9),
+( (SELECT tranId FROM TRANSACTION WHERE userId=5), 1, 3),
+( (SELECT tranId FROM TRANSACTION WHERE userId=6), 1, 16),
+( (SELECT tranId FROM TRANSACTION WHERE userId=7), 1, 11),
+( (SELECT tranId FROM TRANSACTION WHERE userId=7), 2, 8),
+( (SELECT tranId FROM TRANSACTION WHERE userId=7), 3, 1);
