@@ -323,7 +323,7 @@
     function getCart(){
         global $conn;
         $taxRate=getUserTaxRate();
-        $shipping=getUserShipping();
+        $shipping=0;
         $total=0;
         $tax=0;
         $cartAsString="";
@@ -334,6 +334,7 @@
         if(empty($_SESSION['cart'])){
             $cartAsString.="<td class='text-center'><strong>Cart Empty</strong></td>"; 
         }else{
+            $shipping=getUserShipping();
             $cartAsString.="<thead><th>Title</th><th>Price</th></th><th></th></thead>";
         }
         
@@ -361,7 +362,7 @@
         $cartAsString.="<hr />";
         $cartAsString.="<strong>Total: $".($total)."<br />Tax: $".$tax."<br />Shipping: $".$shipping."</strong>";
         $cartAsString.="<hr/>";
-        $cartAsString.="<h3><strong>$".($total + $tax + $shipping)."</strong></h3>";
+        $cartAsString.="<h3><strong>$".money_format('%.2n', ($total + $tax + $shipping))."</strong></h3>";
         $cartAsString.="<button class='btn btn-primary' id='checkoutBtn'>Checkout</button>";
         
         return $cartAsString;
