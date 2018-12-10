@@ -26,19 +26,7 @@
         
         return $average;
     }
-    
 ?>
-
-<div class='container text-center'>
-    <h1>Reports</h1>
-    
-    <?php 
-        $allProducts = getAllProducts();
-        echo "Average price of all products is $" . getAveragePrice($allProducts) . ".";
-        echo "<br><br>";
-    ?>
-    
-</div>
 
 <div class="container">
     <h3>Reports</h3>
