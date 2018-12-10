@@ -1,8 +1,13 @@
 <?php 
 
     session_start();
-    include 'inc/header.php';
-        
+    
+    if(!isset($_SESSION['isAdmin']) or !$_SESSION['isAdmin']){
+        header("Location:index.php");
+    }
+    
+    include 'inc/header.php'; 
+    
     $conn = getDatabaseConnection();
     
     if (isset($_GET['addProduct'])) {
