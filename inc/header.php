@@ -53,6 +53,9 @@
                                     <li>
                                         <a href="#">Admin Page 1</a>
                                     </li>
+                                    <li>
+                                        <a href="products.php">Products</a>
+                                    </li>
                                 </ul>
                             </li>
                         ':''?>
