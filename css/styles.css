@@ -42,3 +42,19 @@ body{
         float: none;
     }
 }
+
+#updateProductMsg {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  font-size: 18px;
+  color: green;
+}
+
+#addProductMsg {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  font-size: 18px;
+  color: green;
+}
