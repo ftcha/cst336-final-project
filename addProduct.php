@@ -19,7 +19,7 @@
         $stmt = $conn->prepare($sql);
         $stmt->execute($np);
         
-        echo "<span id='updateMsg'> Product has been added! </span>";
+        echo "<span id='addProductMsg'> Product has been added! </span>";
         echo "<br /><br />";
     }
 
