@@ -22,7 +22,7 @@ PRIMARY KEY (stateCode)
 CREATE TABLE users
 (
  userId   TINYINT NOT NULL AUTO_INCREMENT ,
- userName VARCHAR(16) NOT NULL ,
+ userName VARCHAR(30) NOT NULL ,
  PASSWORD CHAR(40) NOT NULL ,
  stateCode VARCHAR(2) NOT NULL ,
 PRIMARY KEY (userId),
@@ -169,12 +169,9 @@ INSERT INTO users (userId, userName, PASSWORD, stateCode) VALUES
 (NULL, 'dennis.creevey', SHA1('dennis.creevey'), 'AR'),
 (NULL, 'viktor.krum', SHA1('viktor.krum'), 'WY');
 
-
 INSERT INTO roles (roleId, roleName, roleDescription) VALUES
 (NULL, 'Admin', 'Site Administrator'),
 (NULL, 'User', 'Normal User');
-
-
 
 INSERT INTO product (productId, NAME, description, imageURL, price) VALUES
 (NULL, 'Cocktail', "Tom Cruise is electrifying as Brian Flanagan, a young, confident, and ambitious bartender who moves to Jamaica and meets an independent artist.", 'https://images-na.ssl-images-amazon.com/images/I/41SCM1BQDWL._SY445_.jpg', 6.98),
