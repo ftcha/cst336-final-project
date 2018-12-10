@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include 'inc/functions.php';
+    include 'functions.php';
     
     if (empty($_SESSION['cart'])){
         $_SESSION['cart'] = array();
@@ -61,11 +61,11 @@
                         ':''?>
 
                         <li>
-                            <form class="navbar-form">
+                            <form class="navbar-form" action="shop.php" method="POST">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search">
+                                    <input type="text" class="form-control" placeholder="Search" name="searchVal">
                                     <div class="input-group-btn">
-                                        <button class="btn btn-default" type="submit">
+                                        <button class="btn btn-default" type="submit" id="searchBtn">
                                             <i class="glyphicon glyphicon-search" aria-hidden='true'></i>
                                         </button>
                                     </div>
@@ -80,8 +80,7 @@
                         <!-- If user is logged in then show cart else show sign up button-->
                         <?=$_SESSION['loggedIn']==true?'
                             <li>
-                                <a href="#">
-                                <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>&nbsp;Cart: 0</a>
+                                <a href="#" id="cartBtn"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>&nbsp;Cart: <span id="cartCount">'.cartCount().'</span></a>
                                 <li><a href="#" id="logoutBtn"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Logout</a></li>
                             </li>'
                         :'
@@ -96,5 +95,5 @@
         </nav>
         
 <?php
-    include 'inc/modals.php'
+    include 'modals.php';
 ?>
