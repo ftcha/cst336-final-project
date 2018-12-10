@@ -59,12 +59,18 @@ $(document).on("click", "#checkoutBtn", function(event){
     $.ajax({
         type: 'POST',
         url: 'inc/functions.php',
-        dataType: "none",
+        dataType: "json",
         data:{action: "checkout"},
-        complete: function(data, status){
-            alert("Checkout Complete!");
-            $('#cartModal').modal('toggle');
-            location.reload();
+        success: function(data, status){
+            if(data.result=='success'){
+                alert("Checkout Complete!");
+                $('#cartModal').modal('toggle');
+                location.reload();
+            }else if(data.result=='empty'){
+                $(".btn-group").after('<span class="error">&nbsp;&nbsp;Cart empty, cannot check out.</span>')
+            }
+        },
+        complete: function(data, status){ // Used for debuggin purposes
         }
     });
 });
@@ -112,10 +118,10 @@ $(document).on("click", "#loginSubmit", function(event){
         $.ajax({
             type: "POST",
             url: "inc/functions.php",
-            dataType: "text",
+            dataType: "json",
             data: {action: 'login', username: username, password: password},
             success: function(data, status){
-                if(data=='success'){
+                if(data.result=='success'){
                     $('#loginModal').modal('toggle');
                     $("#navigation").load('inc/header.php #navigation');
                 }else{
@@ -137,12 +143,12 @@ $(document).on("click", "#signupSubmit", function(event){
         $.ajax({
             type: "POST",
             url: "inc/functions.php",
-            dataType: "text",
+            dataType: "json",
             data: {action: 'signup', username: username, password: password, state: state},
             success:function(data, status){
-                if(data=='duplicate'){
+                if(data.result=='duplicate'){
                     $(".modal .btn-group").after('<span class="error">&nbsp;&nbsp;Username already exists.</span>')
-                } else if (data=='success'){
+                } else if (data.result=='success'){
                     $('#signupModal').modal('toggle');
                     $("#navigation").load('inc/header.php #navigation');
                 }

@@ -33,7 +33,7 @@
         }
         
         if($_POST['action'] == 'checkout'){
-            checkout();
+            echo checkout();
         }
     }
 
@@ -53,7 +53,8 @@
     
     function loginAttempt($username, $password){
         global $conn;
-        $loginStatus='fail';
+        $returnArr = array();
+        $returnArr['result'] = 'fail';
         $np=array();
         
         $np[':username']=$username;
@@ -73,7 +74,7 @@
         
         if(empty($record)){
             $_SESSION['loggedIn']=false;
-            $loginStatus='fail';
+            $returnArr['result'] = 'fail';
         }else{
             $_SESSION['loggedIn']=true;
             $_SESSION['username']=$record['userName'];
@@ -85,33 +86,35 @@
                 $_SESSION['isAdmin']=false;
             }
     
-            $loginStatus='success';
+            $returnArr['result'] = 'success';
         }
         
-        return $loginStatus;
+        return json_encode($returnArr);
     }
     
     function signupAttempt($username, $password, $state){
         global $conn;
-        $loginStatus='fail';
+        $returnArr = array();
+        $returnArr['result'] = 'fail';
         $np=array();
         $np2=array();
         
         $np[':username']=$username;
         $np[':password']=sha1($password);
+        $np[':state']=$state;
         
-        $sql="INSERT INTO users VALUES (NULL, :username, :password)";
+        $sql="INSERT INTO users VALUES (NULL, :username, :password, :state)";
               
         try{
             $stmt=$conn->prepare($sql);
             $stmt->execute($np);
         }  catch (PDOException $e) {
             if ($e->errorInfo[1] == 1062){
-                $loginStatus="duplicate";
+                $returnArr['result'] = "duplicate";
             }else{
-                $loginStatus="error";
+                $returnArr['result'] = "error";
             }
-            return $loginStatus;
+            return json_encode($returnArr);
         }   
         
         
@@ -123,18 +126,10 @@
 
         $np2[':username']=$username;
         $sql="INSERT INTO user_states VALUES ((SELECT userID FROM users WHERE username=:username), (SELECT stateCode FROM states WHERE stateCode='$state'))";
+
+        $returnArr = loginAttempt($username, $password);
         
-        try{
-            $stmt=$conn->prepare($sql);
-            $stmt->execute($np2);
-        } catch (PDOException $e){
-            $loginStatus="3";
-            return $loginStatus;
-        }
-        
-        $loginStatus = loginAttempt($username, $password);
-        
-        return $loginStatus;
+        return $returnArr;
     }
 
     function displayAllProducts(){
@@ -355,7 +350,7 @@
         }
         
         $total=money_format('%.2n', $total);
-        $tax=money_format('%.2n',$tax);
+        $tax=money_format('%.2n', $tax);
         $shipping=money_format('%.2n', $shipping);
         
         $cartAsString.="</table>";
@@ -363,7 +358,7 @@
         $cartAsString.="<strong>Total: $".($total)."<br />Tax: $".$tax."<br />Shipping: $".$shipping."</strong>";
         $cartAsString.="<hr/>";
         $cartAsString.="<h3><strong>$".money_format('%.2n', ($total + $tax + $shipping))."</strong></h3>";
-        $cartAsString.="<button class='btn btn-primary' id='checkoutBtn'>Checkout</button>";
+        $cartAsString.="<button class='btn btn-primary btn-group' id='checkoutBtn'>Checkout</button>";
         
         return $cartAsString;
     }
@@ -415,10 +410,16 @@
         global $conn;
         $taxRate=getUserTaxRate();
         $shipping=getUserShipping();
+        $returnArr=array();
         $total=0;
         $tax=0;
         $tranId=1;
         $lineNumber=1;
+        
+        if(cartCount() == 0){
+            $returnArr['result']='empty';
+            return json_encode($returnArr);
+        }
         
         $sql = "SELECT MAX(tranId) AS lastTran FROM TRANSACTION";
         
@@ -463,6 +464,9 @@
             unset($_SESSION['cart'][$itemKey]);
         }
         
+        $returnArr['result']='success';
+        
+        return json_encode($returnArr);
     }
     
 ?>

@@ -1,21 +1,5 @@
-[10-Dec-2018 00:08:22 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[42S22]: Column not found: 1054 Unknown column 'us.stateCode' in 'on clause'' in /home/ubuntu/workspace/cst336-final-project/inc/functions.php:343
+[10-Dec-2018 02:54:04 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`final`.`transactionDetails`, CONSTRAINT `FK_transaction_product` FOREIGN KEY (`productId`) REFERENCES `product` (`productId`))' in /home/ubuntu/workspace/cst336-final-project/inc/deleteProduct.php:13
 Stack trace:
-#0 /home/ubuntu/workspace/cst336-final-project/inc/functions.php(343): PDOStatement->execute()
-#1 /home/ubuntu/workspace/cst336-final-project/inc/functions.php(289): getUserTaxRate()
-#2 /home/ubuntu/workspace/cst336-final-project/inc/functions.php(28): getCart()
-#3 {main}
-  thrown in /home/ubuntu/workspace/cst336-final-project/inc/functions.php on line 343
-[10-Dec-2018 00:08:38 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[42S02]: Base table or view not found: 1146 Table 'final.user' doesn't exist' in /home/ubuntu/workspace/cst336-final-project/inc/functions.php:360
-Stack trace:
-#0 /home/ubuntu/workspace/cst336-final-project/inc/functions.php(360): PDOStatement->execute()
-#1 /home/ubuntu/workspace/cst336-final-project/inc/functions.php(290): getUserShipping()
-#2 /home/ubuntu/workspace/cst336-final-project/inc/functions.php(28): getCart()
-#3 {main}
-  thrown in /home/ubuntu/workspace/cst336-final-project/inc/functions.php on line 360
-[10-Dec-2018 00:08:42 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[42S02]: Base table or view not found: 1146 Table 'final.user' doesn't exist' in /home/ubuntu/workspace/cst336-final-project/inc/functions.php:360
-Stack trace:
-#0 /home/ubuntu/workspace/cst336-final-project/inc/functions.php(360): PDOStatement->execute()
-#1 /home/ubuntu/workspace/cst336-final-project/inc/functions.php(290): getUserShipping()
-#2 /home/ubuntu/workspace/cst336-final-project/inc/functions.php(28): getCart()
-#3 {main}
-  thrown in /home/ubuntu/workspace/cst336-final-project/inc/functions.php on line 360
+#0 /home/ubuntu/workspace/cst336-final-project/inc/deleteProduct.php(13): PDOStatement->execute()
+#1 {main}
+  thrown in /home/ubuntu/workspace/cst336-final-project/inc/deleteProduct.php on line 13
