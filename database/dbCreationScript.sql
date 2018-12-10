@@ -2,7 +2,7 @@
 -- *************** Tom Cruise Emporium ***************;
 
 SET FOREIGN_KEY_CHECKS = 0;
-DROP TABLE IF EXISTS user_roles, TRANSACTION, transactionDetails, users, states, roles, product;
+DROP TABLE IF EXISTS user_roles, TRANSACTION, users, states, roles, transactionDetails, product;
 SET FOREIGN_KEY_CHECKS = 1;
 SET @@auto_increment_increment = 1;
 
@@ -17,20 +17,18 @@ CREATE TABLE states
 PRIMARY KEY (stateCode)
 );
 
-
 -- ************************************** `users`
 
 CREATE TABLE users
 (
  userId   TINYINT NOT NULL AUTO_INCREMENT ,
- userName VARCHAR(40) NOT NULL ,
+ userName VARCHAR(16) NOT NULL ,
  PASSWORD CHAR(40) NOT NULL ,
  stateCode VARCHAR(2) NOT NULL ,
 PRIMARY KEY (userId),
 UNIQUE(userName),
 CONSTRAINT FK_users_state FOREIGN KEY (stateCode) REFERENCES states (stateCode)
 );
-
 
 -- ************************************** `roles`
 
@@ -67,12 +65,10 @@ CONSTRAINT FK_user_roles_user FOREIGN KEY (userId) REFERENCES users (userId),
 CONSTRAINT FK_user_roles_roles FOREIGN KEY (roleId) REFERENCES roles (roleId)
 );
 
-
 -- ************************************** `transaction`
-
 CREATE TABLE TRANSACTION
 (
- tranId INT NOT NULL AUTO_INCREMENT ,
+ tranId INT NOT NULL,
  subtotal FLOAT,
  tax FLOAT,
  shipping FLOAT,
@@ -81,17 +77,15 @@ CREATE TABLE TRANSACTION
  CONSTRAINT FK_transaction_user FOREIGN KEY (userId) REFERENCES users (userId)
 );
 
-
 -- ************************************** `transactionDetails`
-
 CREATE TABLE transactionDetails
 (
  tranId     INT NOT NULL ,
- lineNumber INT NOT NULL,
- productId  INT NOT NULL ,
+ lineNumber INT NOT NULL ,
+ NAME        VARCHAR(45) NOT NULL ,
+ price       DECIMAL(10,2) NOT NULL ,
  PRIMARY KEY (tranId, lineNumber),
- CONSTRAINT FK_transactionDet_transaction FOREIGN KEY (tranId) REFERENCES TRANSACTION (tranId),
- CONSTRAINT FK_transaction_product FOREIGN KEY (productId) REFERENCES product (productId)
+ CONSTRAINT FK_transactionDet_transaction FOREIGN KEY (tranId) REFERENCES TRANSACTION (tranId)
 );
 
 
@@ -152,8 +146,6 @@ INSERT INTO states (stateCode, stateTax, shipping) VALUES
 ('DC', 0.0575, 7.95),
 ('PR', 0.105, 7.95);
 
-
-
 INSERT INTO users (userId, userName, PASSWORD, stateCode) VALUES
 (NULL, 'admin', SHA1('secret'), 'CA'),
 (NULL, 'tom.riddle', SHA1('tom.riddle'), 'AL'),
@@ -176,7 +168,6 @@ INSERT INTO users (userId, userName, PASSWORD, stateCode) VALUES
 (NULL, 'sirius.black', SHA1('sirius.black'), 'LA'),
 (NULL, 'dennis.creevey', SHA1('dennis.creevey'), 'AR'),
 (NULL, 'viktor.krum', SHA1('viktor.krum'), 'WY');
-
 
 
 INSERT INTO roles (roleId, roleName, roleDescription) VALUES
@@ -232,61 +223,44 @@ INSERT INTO user_roles (userId, roleId) VALUES
 ( (SELECT userId FROM users WHERE userName='dennis.creevey'), (SELECT roleId FROM roles WHERE roleName='User') ),
 ( (SELECT userId FROM users WHERE userName='viktor.krum'), (SELECT roleId FROM roles WHERE roleName='User') );
 
-
-
 INSERT INTO TRANSACTION (tranId, subtotal, tax, shipping, userId) VALUES
-(NULL, 19.66, 0.79, 7.95, (SELECT userId FROM users WHERE userName='tom.riddle') ),
-(NULL, 193.76, 10.85, 7.95, (SELECT userId FROM users WHERE userName='ludo.bagman') ),
-(NULL, 34.74, 1.01, 7.95, (SELECT userId FROM users WHERE userName='fleur.delacour') ),
-(NULL, 6.38, 0.67, 7.95, (SELECT userId FROM users WHERE userName='lee.jordan') ),
-(NULL, 1.4, 0.08, 7.95, (SELECT userId FROM users WHERE userName='gilderoy.lockhart') ),
-(NULL, 19.37, 0.92, 7.95, (SELECT userId FROM users WHERE userName='padma.patil') ),
-(NULL, 44.4, 1.78, 7.95, (SELECT userId FROM users WHERE userName='kingsley.shacklebolt') ),
-(NULL, 5.69, 0.37, 7.95, (SELECT userId FROM users WHERE userName='dolores.umbridge') ),
-(NULL, 34.76, 1.91, 7.95, (SELECT userId FROM users WHERE userName='oliver.wood') ),
-(NULL, 20.63, 1.24, 7.95, (SELECT userId FROM users WHERE userName='buckbeak') ),
-(NULL, 9.07, 0.57, 7.95, (SELECT userId FROM users WHERE userName='draco.malfoy') ),
-(NULL, 21.36, 1.36, 7.95, (SELECT userId FROM users WHERE userName='neville.longbottom') ),
-(NULL, 28.58, 1.71, 7.95, (SELECT userId FROM users WHERE userName='rubeus.hagrid') ),
-(NULL, 6.38, 0.29, 7.95, (SELECT userId FROM users WHERE userName='norbert') ),
-(NULL, 37.99, 1.9, 7.95, (SELECT userId FROM users WHERE userName='aurora.sinistra') ),
-(NULL, 24.75, 0.99, 7.95, (SELECT userId FROM users WHERE userName='hermione.granger') ),
-(NULL, 31.84, 1.27, 7.95, (SELECT userId FROM users WHERE userName='cedric.diggory') ),
-(NULL, 16.69, 0.83, 7.95, (SELECT userId FROM users WHERE userName='sirius.black') ),
-(NULL, 7.95, 0.52, 7.95, (SELECT userId FROM users WHERE userName='dennis.creevey') ),
-(NULL, 13.89, 0.56, 7.95, (SELECT userId FROM users WHERE userName='viktor.krum') );
+(1, 31.85, 1.28, 7.95, (SELECT userId FROM users WHERE userName='tom.riddle') ),
+(2, 193.76, 10.85, 7.95, (SELECT userId FROM users WHERE userName='ludo.bagman') ),
+(3, 56.10, 1.63, 7.95, (SELECT userId FROM users WHERE userName='fleur.delacour') ),
+(4, 15.98, 1.68, 7.95, (SELECT userId FROM users WHERE userName='lee.jordan') ),
+(5, 1.40, 0.08, 7.95, (SELECT userId FROM users WHERE userName='gilderoy.lockhart') ),
+(6, 26.44, 1.26, 7.95, (SELECT userId FROM users WHERE userName='padma.patil') );
 
-
-INSERT INTO transactionDetails (tranId, lineNumber, productId) VALUES
-( (SELECT tranId FROM TRANSACTION WHERE userId=2), 1, 3),
-( (SELECT tranId FROM TRANSACTION WHERE userId=2), 2, 18),
-( (SELECT tranId FROM TRANSACTION WHERE userId=2), 3, 7),
-( (SELECT tranId FROM TRANSACTION WHERE userId=3), 1, 1),
-( (SELECT tranId FROM TRANSACTION WHERE userId=3), 2, 2),
-( (SELECT tranId FROM TRANSACTION WHERE userId=3), 3, 3),
-( (SELECT tranId FROM TRANSACTION WHERE userId=3), 4, 4),
-( (SELECT tranId FROM TRANSACTION WHERE userId=3), 5, 5),
-( (SELECT tranId FROM TRANSACTION WHERE userId=3), 6, 6),
-( (SELECT tranId FROM TRANSACTION WHERE userId=3), 7, 7),
-( (SELECT tranId FROM TRANSACTION WHERE userId=3), 8, 8),
-( (SELECT tranId FROM TRANSACTION WHERE userId=3), 9, 9),
-( (SELECT tranId FROM TRANSACTION WHERE userId=3), 10, 10),
-( (SELECT tranId FROM TRANSACTION WHERE userId=3), 11, 11),
-( (SELECT tranId FROM TRANSACTION WHERE userId=3), 12, 12),
-( (SELECT tranId FROM TRANSACTION WHERE userId=3), 13, 13),
-( (SELECT tranId FROM TRANSACTION WHERE userId=3), 14, 14),
-( (SELECT tranId FROM TRANSACTION WHERE userId=3), 15, 15),
-( (SELECT tranId FROM TRANSACTION WHERE userId=3), 16, 16),
-( (SELECT tranId FROM TRANSACTION WHERE userId=3), 17, 17),
-( (SELECT tranId FROM TRANSACTION WHERE userId=3), 18, 18),
-( (SELECT tranId FROM TRANSACTION WHERE userId=3), 19, 19),
-( (SELECT tranId FROM TRANSACTION WHERE userId=3), 20, 20),
-( (SELECT tranId FROM TRANSACTION WHERE userId=4), 1, 4),
-( (SELECT tranId FROM TRANSACTION WHERE userId=4), 2, 6),
-( (SELECT tranId FROM TRANSACTION WHERE userId=4), 3, 10),
-( (SELECT tranId FROM TRANSACTION WHERE userId=4), 4, 9),
-( (SELECT tranId FROM TRANSACTION WHERE userId=5), 1, 3),
-( (SELECT tranId FROM TRANSACTION WHERE userId=6), 1, 16),
-( (SELECT tranId FROM TRANSACTION WHERE userId=7), 1, 11),
-( (SELECT tranId FROM TRANSACTION WHERE userId=7), 2, 8),
-( (SELECT tranId FROM TRANSACTION WHERE userId=7), 3, 1);
+INSERT INTO transactionDetails (tranId, lineNumber, NAME, price) VALUES
+( 1, 1, 'Cocktail', 6.98),
+( 1, 2, 'The Firm', 7.10),
+( 1, 3, 'Eyes Wide Shut', 17.77),
+( 2, 1, 'Cocktail', 6.98),
+( 2, 2, 'The Firm', 7.10),
+( 2, 3, 'Top Gun', 15.98),
+( 2, 4, 'All The Right Moves', 9.99),
+( 2, 5, 'The Outsiders', 1.97),
+( 2, 6, 'Days of Thunder', 6.99),
+( 2, 7, 'Eyes Wide Shut', 17.77),
+( 2, 8, 'Jerry Maguire', 9.50),
+( 2, 9, 'Minority Report', 20.63),
+( 2, 10, 'Interview with the Vampire', 18.49),
+( 2, 11, 'The Color of Money', 9.96),
+( 2, 12, 'Collateral', 6.69),
+( 2, 13, 'Magnolia', 12.99),
+( 2, 14, 'A Few Good Men', 5.69),
+( 2, 15, 'Vanilla Sky', 3.41),
+( 2, 16, 'Born on the Fourth of July', 1.40),
+( 2, 17, 'Far and Away', 10.00),
+( 2, 18, 'Legend', 6.38),
+( 2, 19, 'The Last Samurai', 13.89),
+( 2, 20, 'Mission Impossible', 7.95),
+( 3, 1, 'All The Right Moves', 9.99),
+( 3, 2, 'Days of Thunder', 6.99),
+( 3, 3, 'Interview with the Vampire', 18.49),
+( 3, 4, 'Minority Report', 20.63),
+( 4, 1, 'Top Gun', 15.98),
+( 5, 1, 'Born on the Fourth of July', 1.40),
+( 6, 1, 'The Color of Money', 9.96),
+( 6, 2, 'Jerry Maguire', 9.50),
+( 6, 3, 'Cocktail', 6.98);
