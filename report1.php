@@ -1,5 +1,10 @@
 <?php
     session_start();
+    
+    if(!isset($_SESSION['isAdmin']) or !$_SESSION['isAdmin']){
+        header("Location:index.php");
+    }
+    
     include 'inc/header.php';
     $conn=getDatabaseConnection();
     
@@ -34,9 +39,8 @@
     
     <ul class="nav nav-tabs">
         <li class="active"><a href="report1.php">Average Price</a></li>
-         <li><a href="report2.php">Report2</a></li>
-        <li><a href="#">Report3</a></li>
-        <li><a href="#">Report4</a></li>
+         <li><a href="report2.php">Transaction Report</a></li>
+        <li><a href="report3.php">Transaction Detail Report</a></li>
     </ul>
     <br />
   

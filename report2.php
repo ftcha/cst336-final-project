@@ -33,7 +33,6 @@
         <li><a href="report1.php">Average Price</a></li>
         <li class="active"><a href="report2.php">Transaction Report</a></li>
         <li><a href="report3.php">Transaction Detail Report</a></li>
-        <li><a href="#">Report4</a></li>
     </ul>
     <br />
     
