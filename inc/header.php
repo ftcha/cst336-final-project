@@ -51,7 +51,7 @@
                                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin&nbsp;<span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="#">Admin Page 1</a>
+                                        <a href="reports.php">Reports</a>
                                     </li>
                                     <li>
                                         <a href="products.php">Products</a>
