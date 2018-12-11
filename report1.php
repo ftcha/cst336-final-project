@@ -8,29 +8,7 @@
     include 'inc/header.php';
     $conn=getDatabaseConnection();
     
-    function getAllProducts(){
-        global $conn;
-        $sql = "SELECT * 
-                FROM product 
-                ORDER BY NAME";
-                
-        $stmt = $conn->prepare($sql);
-        $stmt->execute();
-        $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
-        return $records;
-    }
-    
-    function getAveragePrice($array){
-        $total = 0;
-        foreach($array as $arrayItem){
-            $total = $total + $arrayItem['price'];
-        }
-        
-        $average = number_format((float)$total/count($array), 2, '.', '');
-        
-        return $average;
-    }
+
     
 ?>
 
@@ -38,16 +16,19 @@
     <h3>Reports</h3>
     
     <ul class="nav nav-tabs">
-        <li class="active"><a href="report1.php">Average Price</a></li>
+        <li class="active"><a href="report1.php">Inventory Report</a></li>
          <li><a href="report2.php">Transaction Report</a></li>
         <li><a href="report3.php">Transaction Detail Report</a></li>
     </ul>
     <br />
   
     <?php 
-        $allProducts = getAllProducts();
-        echo "Average price of all products is $" . getAveragePrice($allProducts) . ".";
-        echo "<br><br>";
+        echo "<ul style='list-style-type:none'>";
+        echo "<li><strong>Average price of all products:</strong> $" .getAveragePrice(). "</li>";
+        echo "<li><strong>Total value of all inventory items:</strong> $".getInventoryValue()."</li>";
+        echo "<li><strong>Top selling movie(s):</strong> ".getTopSellingItems()."</li>";
+        echo "<li><strong>Worst selling movie(s):</strong> ".getWorstSellingItems()."</li>";
+        echo "</ul>";
     ?>
 </div>
   

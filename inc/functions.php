@@ -469,6 +469,95 @@
         return json_encode($returnArr);
     }
     
+    function getAveragePrice(){
+        global $conn;
+        $sql = "SELECT AVG(price) AS average FROM product";
+        
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $record = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        return money_format('%.2n', $record['average']);
+    }
+    
+    function getInventoryValue(){
+        global $conn;
+        $sql = "SELECT SUM(price) AS sum FROM product";
+        
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $record = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        return money_format('%.2n', $record['sum']);
+    }
+    
+    function getTopSellingItems(){
+        global $conn;
+        $items='';
+        $count=null;
+        $sql = "SELECT name, COUNT(name) AS numSold
+                FROM transactionDetails
+                GROUP BY name
+                ORDER BY numSold
+                DESC";
+        
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        foreach($records as $record){
+            if($count==null){
+                $count=$record['numSold'];
+            }
+            
+            if($record['numSold'] == $count){
+                $items.="'".$record['name']."'&nbsp&nbsp ";
+            }
+        }
+        
+        return $items;
+    }
+    
+    function getWorstSellingItems(){
+        global $conn;
+        $items='';
+        $count=null;
+        $sql = "SELECT name, COUNT(name) AS numSold
+                FROM transactionDetails
+                GROUP BY name
+                ORDER BY numSold";
+        
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        foreach($records as $record){
+            if($count==null){
+                $count=$record['numSold'];
+            }
+            
+            if($record['numSold'] == $count){
+                $items.="'".$record['name']."'&nbsp&nbsp ";
+            }
+        }
+        
+        return $items;
+    }
+    
+    function getAgg($id){
+        global $conn;
+        $np = array();
+        $np[':id'] = $id;
+        
+        $sql = "SELECT tranId, FORMAT(subtotal, 2) AS subtotal, FORMAT(tax, 2) AS tax, shipping, FORMAT((subtotal + tax + shipping), 2) AS total
+                FROM TRANSACTION
+                WHERE tranId=:id";
+                
+        $stmt = $conn->prepare($sql);
+        $stmt->execute($np);
+        $agg = $stmt->fetch(PDO::FETCH_ASSOC);
+        return($agg);
+    }
 ?>
 
 
