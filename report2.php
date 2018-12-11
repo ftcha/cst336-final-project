@@ -51,19 +51,19 @@
                     echo "<tr>";
                     echo "<td>".$record['userName'] ."</td>";
                     echo "<td>".$record['tranId']."</td>";
-                    echo "<td>".$record['Subtotal']."</td>";
-                    echo "<td>".$record['tax']."</td>";
-                    echo "<td>".$record['shipping']."</td>";
-                    echo "<td>".$record['total']."</td>";
+                    echo "<td>$".money_format('%.2n', $record['Subtotal'])."</td>";
+                    echo "<td>$".money_format('%.2n', $record['tax'])."</td>";
+                    echo "<td>$".money_format('%.2n', $record['shipping'])."</td>";
+                    echo "<td>$".money_format('%.2n', $record['total'])."</td>";
                     echo "</tr>";
                 }
                 echo "<tr>";
                 echo "<td></td>";
                 echo "<td></td>";
-                echo "<td><strong>".$agg['sumTotal']."</strong></td>";
-                echo "<td><strong>".$agg['sumTax']."</strong></td>";
-                echo "<td><strong>".$agg['sumShipping']."</strong></td>";
-                echo "<td><strong>".$agg['sumSum']."</strong></td>";
+                echo "<td><strong>$".money_format('%.2n', $agg['sumTotal'])."</strong></td>";
+                echo "<td><strong>$".money_format('%.2n', $agg['sumTax'])."</strong></td>";
+                echo "<td><strong>$".money_format('%.2n', $agg['sumShipping'])."</strong></td>";
+                echo "<td><strong>$".money_format('%.2n', $agg['sumSum'])."</strong></td>";
                 echo "<tr>";
             ?>
         </tbody>

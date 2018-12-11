@@ -54,7 +54,7 @@
                         
                     echo "<td></td>";
                     echo "<td>".$record['NAME']."</td>";
-                    echo "<td>".$record['price']."</td>";
+                    echo "<td>$".money_format('%.2n', $record['price'])."</td>";
                     echo "<td></td>";
                     echo "<td></td>";
                     echo "<td></td>";
